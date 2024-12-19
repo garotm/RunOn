@@ -64,7 +64,7 @@ RunOn/
 
 1. Ensure all tests pass with 100% coverage
 2. Follow PEP 8 style guide
-3. Run format_and_lint.sh before committing
+3. Run `format_and_lint.sh` before committing
 4. Add tests for new functionality
 
 ## Documentation
