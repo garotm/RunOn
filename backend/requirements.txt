@@ -1,0 +1,6 @@
+# Core dependencies
+functions-framework==3.*
+flask==2.*
+google-api-python-client==2.*
+google-cloud-core==2.*
+google-auth==2.*

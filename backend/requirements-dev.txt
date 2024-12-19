@@ -1,0 +1,10 @@
+# Development dependencies
+black==23.*
+isort==5.*
+flake8==6.*
+pytest==7.*
+pytest-cov==4.*
+pytest-asyncio==0.23.*
+
+# Install main requirements
+-r requirements.txt 
