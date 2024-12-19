@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/wiki/fleXRPL/RunOn/images/runon-icon-notext.png" alt="RunOn Logo" width="200"/>
+</p>
+
 # RunOn
 
 A mobile app designed to be the ultimate tool for runners to discover and manage local running events.
