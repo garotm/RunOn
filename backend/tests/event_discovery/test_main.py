@@ -36,11 +36,27 @@ def test_discover_events_valid_request(app):
             'radius': 50
         }
         
-        response = discover_events(request)
-        data = response.get_json()
-        assert 'events' in data
-        assert 'metadata' in data
-        assert data['metadata']['location'] == 'Seattle, WA'
+        # Mock the search_running_events function to return sample data
+        mock_events = [{
+            'id': 'test-event-1',
+            'title': 'Test Event',
+            'date': '2024-03-15T00:00:00',
+            'location': {
+                'address': 'Seattle, WA',
+                'coordinates': {'lat': 0, 'lng': 0}
+            }
+        }]
+        
+        with patch('functions.event_discovery.main.search_running_events') as mock_search:
+            mock_search.return_value = mock_events
+            
+            response, status_code = discover_events(request)
+            assert status_code == 200
+            data = response.get_json()
+            assert 'events' in data
+            assert 'metadata' in data
+            assert data['metadata']['location'] == 'Seattle, WA'
+            assert data['events'] == mock_events
 
 
 def test_discover_events_error_handling(app):

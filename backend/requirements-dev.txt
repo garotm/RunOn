@@ -5,6 +5,9 @@ flake8==6.*
 pytest==7.*
 pytest-cov==4.*
 pytest-asyncio==0.23.*
+pytest-mock==3.*
+responses==0.24.*  # For mocking HTTP requests
+freezegun==1.*     # For datetime testing
 
 # Install main requirements
 -r requirements.txt 
