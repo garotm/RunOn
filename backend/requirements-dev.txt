@@ -8,6 +8,8 @@ pytest-asyncio==0.23.*
 pytest-mock==3.*
 responses==0.24.*
 freezegun==1.*
+moto==4.*
+python-jose==3.*
 
 # Install main requirements
 -r requirements.txt 

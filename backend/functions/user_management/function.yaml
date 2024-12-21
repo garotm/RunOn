@@ -1,0 +1,16 @@
+runtime: python39
+entrypoint: manage_user
+
+environmentVariables:
+  ENVIRONMENT: "production"
+
+secretEnvironmentVariables:
+  - key: GOOGLE_CLIENT_ID
+    secret: google-client-id
+    version: latest
+  - key: APPLE_CLIENT_ID
+    secret: apple-client-id
+    version: latest
+  - key: JWT_SECRET_KEY
+    secret: jwt-secret
+    version: latest 
