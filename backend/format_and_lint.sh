@@ -16,4 +16,4 @@ echo -e "\nRunning flake8 linter..."
 flake8 --config=config/.flake8 functions/
 
 echo -e "\nRunning pytest with coverage..."
-pytest tests/ -v --cov=functions/ --cov-report=term-missing
+pytest tests/ -v --cov=functions/ --cov-report=term-missing --cov-report=xml
