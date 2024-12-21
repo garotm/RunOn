@@ -4,5 +4,9 @@ flask==2.*
 google-api-python-client==2.*
 google-auth==2.*
 google-cloud-core==2.*
+google-cloud-firestore==2.*
 python-dateutil==2.*
 google-auth-oauthlib==1.*
+PyJWT[crypto]==2.*
+requests==2.*
+cachetools==5.*

@@ -7,8 +7,12 @@ from google.auth.transport import requests
 from google.oauth2 import id_token
 from google.oauth2.credentials import Credentials
 
-from .calendar import (add_event_to_calendar, get_calendar_service,
-                       list_synced_events, remove_event_from_calendar)
+from .calendar import (
+    add_event_to_calendar,
+    get_calendar_service,
+    list_synced_events,
+    remove_event_from_calendar,
+)
 
 
 @functions_framework.http
