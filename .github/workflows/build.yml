@@ -14,7 +14,7 @@ jobs:
         python-version: [3.9]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0  # Shallow clones disabled for better SonarCloud reporting
 
@@ -33,7 +33,7 @@ jobs:
     - name: Run formatters and linters
       run: |
         cd backend
-        bash format_and_lint.sh
+        bash scripts/format_and_lint.sh
 
     - name: SonarCloud Scan
       uses: sonarsource/sonarqube-scan-action@master
