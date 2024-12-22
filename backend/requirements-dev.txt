@@ -7,7 +7,7 @@ pylint==3.0.*
 pytest==8.3.*
 pytest-cov==6.0.*
 pytest-asyncio==0.25.*
-responses==0.24.*
+responses==0.25.*
 freezegun==1.4.*
 types-requests==2.31.*
 types-PyJWT==1.7.*
