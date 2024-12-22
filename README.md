@@ -14,6 +14,7 @@ A mobile app designed to be the ultimate tool for runners to discover and manage
 ## Project Overview
 
 RunOn helps runners find and participate in local running events by providing:
+
 - Event discovery based on location
 - Calendar integration for event management
 - User profiles and preferences
@@ -22,6 +23,7 @@ RunOn helps runners find and participate in local running events by providing:
 ## Architecture
 
 ### Backend
+
 - **Framework**: Google Cloud Functions
 - **Language**: Python 3.9+
 - **APIs**: 
@@ -30,6 +32,7 @@ RunOn helps runners find and participate in local running events by providing:
   - Custom REST APIs for user management
 
 ### Testing
+
 - Unit tests with pytest
 - 100% code coverage requirement
 - Automated linting and formatting
@@ -37,12 +40,14 @@ RunOn helps runners find and participate in local running events by providing:
 ## Development Setup
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/fleXRPL/RunOn.git
 cd RunOn
 ```
 
 2. Install dependencies:
+
 ```bash
 cd backend
 pip install -r requirements.txt
@@ -50,23 +55,67 @@ pip install -r requirements-dev.txt
 ```
 
 3. Run tests:
+
 ```bash
 bash format_and_lint.sh
 ```
 
 ## Project Structure
-```
+
+```python
 RunOn/
-├── backend/
-│   ├── functions/
-│   │   ├── event_discovery/    # Event discovery service
-│   │   ├── calendar_sync/      # Calendar integration
-│   │   └── user_management/    # User profile management
-│   ├── tests/                  # Test suites
-│   └── config/                 # Configuration files
-└── docs/
-    ├── detail/                 # Detailed documentation
-    └── summary/                # Summary documentation
+.
+├── config
+│   ├── __init__.py
+│   ├── environment.py
+│   └── settings.py
+├── coverage.xml
+├── docs
+│   └── __init__.py
+├── functions
+│   ├── __init__.py
+│   ├── calendar_sync
+│   │   ├── __init__.py
+│   │   ├── calendar.py
+│   │   └── main.py
+│   ├── event_discovery
+│   │   ├── __init__.py
+│   │   ├── main.py
+│   │   └── search.py
+│   └── user_management
+│       ├── __init__.py
+│       ├── auth.py
+│       ├── function.yaml
+│       ├── main.py
+│       └── models.py
+├── pyproject.toml
+├── requirements-dev.txt
+├── requirements.txt
+├── scripts
+│   ├── cleanup_env.sh
+│   └── format_and_lint.sh
+└── tests
+    ├── __init__.py
+    ├── calendar_sync
+    │   ├── __init__.py
+    │   ├── test_calendar.py
+    │   ├── test_calendar_sync.py
+    │   └── test_main.py
+    ├── config
+    │   ├── __init__.py
+    │   └── test_environment.py
+    ├── conftest.py
+    ├── event_discovery
+    │   ├── __init__.py
+    │   ├── test_event_discovery.py
+    │   └── test_search.py
+    └── user_management
+        ├── __init__.py
+        ├── test_auth.py
+        ├── test_main.py
+        └── test_models.py
+
+23 directories, 44 files
 ```
 
 ## Contributing

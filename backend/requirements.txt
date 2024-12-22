@@ -1,12 +1,11 @@
 # Core dependencies
-functions-framework==3.*
-flask==2.*
-google-api-python-client==2.*
-google-auth==2.*
-google-cloud-core==2.*
-google-cloud-firestore==2.*
-python-dateutil==2.*
-google-auth-oauthlib==1.*
-PyJWT[crypto]==2.*
-requests==2.*
-cachetools==5.*
+flask==3.0.*
+functions-framework==3.5.*
+google-cloud-firestore==2.13.*
+google-auth==2.27.*
+google-auth-oauthlib==1.2.*
+google-auth-httplib2==0.1.*
+google-api-python-client==2.116.*
+pyjwt==2.8.*
+requests==2.31.*
+python-dateutil==2.8.*
