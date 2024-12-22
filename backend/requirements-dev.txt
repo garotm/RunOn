@@ -6,7 +6,7 @@ mypy==1.8.*
 pylint==3.0.*
 pytest==8.3.*
 pytest-cov==4.1.*
-pytest-asyncio==0.23.*
+pytest-asyncio==0.25.*
 responses==0.24.*
 freezegun==1.4.*
 types-requests==2.31.*
