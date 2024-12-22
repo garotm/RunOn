@@ -3,12 +3,7 @@ from typing import Any, Dict, Tuple
 import functions_framework
 from flask import Request, jsonify
 
-from .auth import (
-    create_session_token,
-    verify_apple_token,
-    verify_google_token,
-    verify_session_token,
-)
+from .auth import create_session_token, verify_google_token, verify_session_token
 from .models import create_user_profile, get_user_profile, update_user_profile
 
 
@@ -77,8 +72,6 @@ def handle_login(request: Request) -> Tuple[Dict[str, Any], int]:
         # Verify token based on provider
         if provider == "google":
             user_info = verify_google_token(token)
-        elif provider == "apple":
-            user_info = verify_apple_token(token)
         else:
             return (
                 jsonify({"error": f"Unsupported provider: {provider}", "status": 400}),

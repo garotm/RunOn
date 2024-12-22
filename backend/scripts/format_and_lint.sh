@@ -3,8 +3,8 @@
 # Exit on any error
 set -e
 
-# Change to the backend directory
-cd "$(dirname "$0")"
+# Change to the backend directory (one level up from scripts)
+cd "$(dirname "$0")/.."
 
 echo "Running Black formatter..."
 black functions/

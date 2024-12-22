@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock, patch
 from flask import Flask
-from functions.user_management.main import manage_user
+from functions.user_management.main import manage_user, handle_login, get_profile, update_profile
 
 
 @pytest.fixture
@@ -213,3 +213,147 @@ def test_manage_user_update_profile_no_data(app):
             response, status_code = manage_user(request)
             assert status_code == 400
             assert 'No update data provided' in response.get_json()['error']
+
+
+def test_handle_login_no_json(app):
+    """Test login with no JSON data."""
+    with app.test_request_context(path='/auth/login'):
+        request = Mock(
+            headers={'Authorization': 'Bearer valid-token'},
+            path='/auth/login',
+            get_json=lambda: None  # This covers line 49
+        )
+        
+        response, status_code = handle_login(request)
+        assert status_code == 400
+        assert 'No credentials provided' in response.get_json()['error']
+
+
+def test_handle_login_user_not_found(app):
+    """Test login when user profile doesn't exist."""
+    with app.test_request_context(path='/auth/login'):
+        request = Mock(
+            headers={'Authorization': 'Bearer valid-token'},
+            path='/auth/login',
+            get_json=lambda: {
+                'provider': 'google',
+                'token': 'valid-token'
+            }
+        )
+        
+        with patch('functions.user_management.main.verify_google_token') as mock_verify:
+            mock_verify.side_effect = Exception('Invalid token')
+            
+            response, status_code = handle_login(request)
+            assert status_code == 401
+            assert 'Invalid token' in response.get_json()['error']
+
+
+def test_update_profile_invalid_data(app):
+    """Test profile update with invalid data."""
+    with app.test_request_context(path='/user/profile', method='PUT'):
+        request = Mock(
+            headers={'Authorization': 'Bearer valid-token'},
+            path='/user/profile',
+            method='PUT',
+            get_json=lambda: {'invalid_field': 'value'}
+        )
+        
+        with patch('functions.user_management.main.update_user_profile') as mock_update:
+            mock_update.return_value = Mock(to_dict=lambda: {'id': 'user123'})
+            
+            _, status_code = update_profile('user123', request)
+            assert status_code == 200
+            mock_update.assert_called_once()
+
+
+def test_get_profile_error(app):
+    """Test get profile with database error."""
+    with app.test_request_context():
+        with patch('functions.user_management.main.get_user_profile') as mock_get:
+            mock_get.side_effect = Exception('Database error')
+            
+            response, status_code = get_profile('user123')
+            assert status_code == 500
+            assert 'Database error' in response.get_json()['error']
+
+
+def test_manage_user_invalid_token(app):
+    """Test manage_user with invalid session token."""
+    with app.test_request_context():
+        request = Mock(
+            headers={'Authorization': 'Bearer invalid-token'},
+            path='/profile'
+        )
+        
+        with patch('functions.user_management.main.verify_session_token') as mock_verify:
+            mock_verify.return_value = None  # Simulate invalid token
+            response, status_code = manage_user(request)
+            
+            assert status_code == 401
+            assert 'Invalid token' in response.get_json()['error']
+
+
+def test_handle_login_general_error(app):
+    """Test handle_login with unexpected error."""
+    with app.test_request_context():
+        def get_json(silent=None):
+            return {
+                'provider': 'google',
+                'token': 'valid.google.token'  # Format like a JWT
+            }
+            
+        request = Mock(
+            headers={'Authorization': 'Bearer valid-token'},
+            path='/auth/login',
+            get_json=get_json
+        )
+        
+        with patch('google.oauth2.id_token.verify_oauth2_token') as mock_verify:
+            mock_verify.side_effect = Exception('Test error')
+            response, status_code = manage_user(request)
+            
+            assert status_code == 401
+            assert "Test error" in response.get_json()["error"]
+
+
+def test_manage_user_general_error(app):
+    """Test general error handling in manage_user."""
+    with app.test_request_context():
+        def get_json(silent=None):
+            return {'some': 'data'}
+            
+        request = Mock(
+            headers={'Authorization': 'Bearer valid-token'},
+            path='/user/profile',  # Use a path that requires session token
+            method='GET',
+            get_json=get_json
+        )
+        
+        with patch('functions.user_management.main.verify_session_token') as mock_verify:
+            mock_verify.side_effect = Exception('Test error')
+            response, status_code = manage_user(request)
+            
+            assert status_code == 500  # This one should be 500
+            assert "Test error" in response.get_json()["error"]
+
+
+def test_handle_login_unsupported_provider(app):
+    """Test login with unsupported provider."""
+    with app.test_request_context():
+        def get_json(silent=None):
+            return {
+                'provider': 'facebook',  # Unsupported provider
+                'token': 'valid.token'
+            }
+            
+        request = Mock(
+            headers={'Authorization': 'Bearer valid-token'},
+            path='/auth/login',
+            get_json=get_json
+        )
+        
+        response, status_code = manage_user(request)
+        
+        assert status_code == 400
+        assert "Unsupported provider: facebook" in response.get_json()["error"]

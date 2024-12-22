@@ -53,21 +53,13 @@ def sync_calendar(request) -> Tuple[Dict[str, Any], int]:
             return jsonify({"error": "No JSON data provided", "status": 400}), 400
 
         action = request_json.get("action")
-        event_data = request_json.get(
-            "event", {}
-        )  # Make event optional for 'list' action
+        event_data = request_json.get("event", {})
 
         if not action:
             return (
                 jsonify({"error": "Missing required action parameter", "status": 400}),
                 400,
             )
-
-        if action not in ["add", "remove", "list"]:
-            return jsonify({"error": f"Invalid action: {action}", "status": 400}), 400
-
-        if action in ["add", "remove"] and not event_data:
-            return jsonify({"error": "Missing required event data", "status": 400}), 400
 
         # Create credentials from the token
         credentials = Credentials(
@@ -79,10 +71,20 @@ def sync_calendar(request) -> Tuple[Dict[str, Any], int]:
 
         # Process the request based on action
         if action == "add":
+            if not event_data:
+                return (
+                    jsonify({"error": "Missing required event data", "status": 400}),
+                    400,
+                )
             result = add_event_to_calendar(service, event_data)
             return jsonify({"status": "success", "event": result}), 200
 
         elif action == "remove":
+            if not event_data:
+                return (
+                    jsonify({"error": "Missing required event data", "status": 400}),
+                    400,
+                )
             result = remove_event_from_calendar(service, event_data["id"])
             return jsonify({"status": "success", "message": "Event removed"}), 200
 
@@ -90,8 +92,8 @@ def sync_calendar(request) -> Tuple[Dict[str, Any], int]:
             events = list_synced_events(service)
             return jsonify({"status": "success", "events": events}), 200
 
-        else:
-            return jsonify({"error": f"Invalid action: {action}", "status": 400}), 400
+        # Invalid action check moved here
+        return jsonify({"error": f"Invalid action: {action}", "status": 400}), 400
 
     except Exception as e:
         return jsonify({"error": str(e), "status": 500}), 500

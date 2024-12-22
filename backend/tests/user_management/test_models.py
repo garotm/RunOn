@@ -164,3 +164,21 @@ def test_update_user_profile_no_changes(mock_firestore, sample_user_data):
         user = update_user_profile('user123', {'invalid_field': 'value'})
         assert user.id == 'user123'
         mock_firestore['doc'].update.assert_not_called() 
+
+
+def test_update_user_profile_no_valid_fields(mock_firestore, sample_user_data):
+    """Test updating user profile with no valid fields."""
+    mock_firestore['doc'].get.return_value.exists = True
+    mock_firestore['doc'].get.return_value.to_dict.return_value = sample_user_data
+    
+    with patch('functions.user_management.models.get_firestore_client') as mock_get_client:
+        mock_get_client.return_value = mock_firestore['client']
+        
+        # Try to update with only invalid fields
+        update_data = {'invalid_field1': 'value1', 'invalid_field2': 'value2'}
+        user = update_user_profile('user123', update_data)
+        
+        # Should return unchanged user without making Firestore call
+        assert user.id == 'user123'
+        mock_firestore['doc'].update.assert_not_called()
+  
