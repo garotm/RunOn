@@ -1,0 +1,55 @@
+version: 2
+updates:
+  # Python dependencies in backend
+  - package-ecosystem: "pip"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "python"
+    commit-message:
+      prefix: "pip"
+      include: "scope"
+    # Limit to security updates and major versions
+    open-pull-requests-limit: 10
+    versioning-strategy: "auto"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "github-actions"
+      include: "scope"
+    # Limit number of open PRs
+    open-pull-requests-limit: 5
+
+  # Requirements files in backend/functions
+  - package-ecosystem: "pip"
+    directory: "/backend/functions"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "python"
+      - "functions"
+    commit-message:
+      prefix: "pip-functions"
+      include: "scope"
+    # Limit to security updates and major versions
+    open-pull-requests-limit: 10
+    versioning-strategy: "auto"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
