@@ -123,9 +123,7 @@ def update_user_profile(user_id: str, data: Dict[str, Any]) -> User:
 
     # Save to Firestore
     db = get_firestore_client()
-    db.collection("users").document(user_id).update(
-        {**update_data, "updated_at": user.updated_at}
-    )
+    db.collection("users").document(user_id).update({**update_data, "updated_at": user.updated_at})
 
     return user
 

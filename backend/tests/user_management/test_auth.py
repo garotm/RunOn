@@ -1,6 +1,7 @@
-from unittest.mock import Mock, patch
+"""Tests for authentication functionality."""
 
-import jwt
+from unittest.mock import patch
+
 import pytest
 
 from functions.user_management.auth import (
@@ -10,57 +11,45 @@ from functions.user_management.auth import (
 )
 
 
-def test_verify_google_token():
-    """Test Google token verification."""
-    mock_token = "google-token"
-    mock_user_info = {
-        "sub": "google123",
-        "email": "test@gmail.com",
-        "name": "Test User",
-    }
+def test_verify_google_token_valid():
+    """Test Google token verification with valid token."""
+    mock_info = {"sub": "123", "email": "test@example.com", "name": "Test User"}
 
-    with patch("google.oauth2.id_token.verify_oauth2_token") as mock_verify:
-        mock_verify.return_value = mock_user_info
-        result = verify_google_token(mock_token)
+    with patch("google.oauth2.id_token.verify_oauth2_token", return_value=mock_info):
+        with patch("google.auth.transport.requests.Request") as mock_request:
+            result = verify_google_token("valid-token")
+            assert result == mock_info
+            mock_request.assert_called_once()
 
-        assert result == mock_user_info
-        mock_verify.assert_called_once()
+
+def test_verify_google_token_invalid():
+    """Test Google token verification with invalid token."""
+    with patch(
+        "google.oauth2.id_token.verify_oauth2_token", side_effect=ValueError("Invalid token")
+    ):
+        with pytest.raises(ValueError) as exc:
+            verify_google_token("invalid-token")
+        assert "Invalid token" in str(exc.value)
 
 
 def test_create_session_token():
     """Test session token creation."""
-    mock_user = Mock(
-        id="user123", email="test@example.com", name="Test User"
-    )
-
-    with patch("jwt.encode") as mock_encode:
-        mock_encode.return_value = "session-token"
-        result = create_session_token(mock_user)
-
-        assert result == "session-token"
-        mock_encode.assert_called_once()
+    user_data = {"id": "123", "email": "test@example.com"}
+    token = create_session_token(user_data)
+    assert isinstance(token, str)
+    assert len(token) > 0
 
 
-def test_verify_session_token():
-    """Test session token verification."""
-    mock_token = "valid-token"
-    mock_payload = {"sub": "user123", "email": "test@example.com"}
-
-    with patch("jwt.decode") as mock_decode:
-        mock_decode.return_value = mock_payload
-        result = verify_session_token(mock_token)
-
-        assert result == mock_payload
-        mock_decode.assert_called_once()
+def test_verify_session_token_valid():
+    """Test session token verification with valid token."""
+    user_data = {"id": "123", "email": "test@example.com"}
+    token = create_session_token(user_data)
+    result = verify_session_token(token)
+    assert result["sub"] == user_data["id"]
+    assert result["email"] == user_data["email"]
 
 
 def test_verify_session_token_invalid():
     """Test session token verification with invalid token."""
-    mock_token = "invalid-token"
-
-    with patch("jwt.decode") as mock_decode:
-        mock_decode.side_effect = jwt.InvalidTokenError()
-        result = verify_session_token(mock_token)
-
-        assert result is None
-        mock_decode.assert_called_once()
+    with pytest.raises(ValueError):
+        verify_session_token("invalid-token")

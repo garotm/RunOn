@@ -1,1 +1,1 @@
-"""Tests for calendar synchronization package.""" 
+"""Tests for calendar sync package."""

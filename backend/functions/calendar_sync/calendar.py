@@ -33,9 +33,7 @@ def add_event_to_calendar(service, event_data: Dict[str, Any]) -> Dict[str, Any]
         "description": f"Running event: {event_data.get('description', '')}",
         "start": {"dateTime": event_data["date"], "timeZone": "UTC"},
         "end": {
-            "dateTime": event_data[
-                "date"
-            ],  # TODO: Calculate end time based on distance
+            "dateTime": event_data["date"],  # TODO: Calculate end time based on distance
             "timeZone": "UTC",
         },
         "reminders": {

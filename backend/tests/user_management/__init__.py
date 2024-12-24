@@ -1,1 +1,1 @@
-"""Tests for user management package.""" 
+"""Tests for user management package."""

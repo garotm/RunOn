@@ -22,6 +22,7 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
+        cache: 'pip'
 
     - name: Install dependencies
       run: |
@@ -35,8 +36,27 @@ jobs:
         cd backend
         bash scripts/format_and_lint.sh
 
+    - name: Run security checks
+      run: |
+        cd backend
+        pip install bandit safety
+        bandit -r . -c pyproject.toml
+        safety check
+
+    - name: Run tests with coverage
+      run: |
+        cd backend
+        pytest --cov=. --cov-report=xml --cov-report=term-missing
+
     - name: SonarCloud Scan
-      uses: sonarsource/sonarqube-scan-action@master
+      uses: sonarsource/sonarcloud-scan-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.organization=flexrpl
+          -Dsonar.projectKey=fleXRPL_RunOn
+          -Dsonar.python.coverage.reportPaths=backend/coverage.xml
+          -Dsonar.sources=backend
+          -Dsonar.tests=backend/tests

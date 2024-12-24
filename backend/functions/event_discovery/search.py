@@ -1,94 +1,56 @@
-import os
-from datetime import datetime, timedelta
+"""Event discovery search functionality."""
+
 from typing import Any, Dict, List
 
-from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
+from config import Environment
 
-def get_google_search_client():
-    """Initialize Google Custom Search API client.
 
-    Returns:
-        googleapiclient.discovery.Resource: Google Custom Search API client
-    """
-    # Get credentials from environment or service account
-    credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-    if not credentials_path:
-        raise ValueError("GOOGLE_APPLICATION_CREDENTIALS environment variable not set")
+def format_search_query(location: str, radius: int) -> str:
+    """Format search query for running events."""
+    return f"running events near {location} within {radius}km"
 
-    credentials = service_account.Credentials.from_service_account_file(
-        credentials_path, scopes=["https://www.googleapis.com/auth/cse"]
-    )
 
-    return build("customsearch", "v1", credentials=credentials)
+def extract_event_details(search_result: Dict[str, Any]) -> Dict[str, str]:
+    """Extract relevant event details from search result."""
+    return {
+        "title": search_result.get("title", ""),
+        "url": search_result.get("link", ""),
+        "description": search_result.get("snippet", ""),
+    }
 
 
 def search_running_events(location: str, radius: int = 50) -> List[Dict[str, Any]]:
-    """Search for running events using Google Custom Search API.
+    """Search for running events near a location."""
+    service = build(
+        "customsearch",
+        "v1",
+        developerKey=Environment.get_required("GOOGLE_SEARCH_API_KEY"),
+    )
 
-    Args:
-        location: Location string (e.g., "Seattle, WA")
-        radius: Search radius in kilometers
+    query = format_search_query(location, radius)
 
-    Returns:
-        List[Dict]: List of event objects
-    """
     try:
-        service = get_google_search_client()
-
-        # Construct search query
-        query = f"running race events near {location}"
-
-        # Execute search
         result = (
             service.cse()
             .list(
                 q=query,
-                cx=os.getenv("GOOGLE_CUSTOM_SEARCH_CX"),
-                dateRestrict="m3",  # Last 3 months
+                cx=Environment.get_required("GOOGLE_SEARCH_ENGINE_ID"),
                 num=10,
             )
             .execute()
         )
 
-        # Parse and format results
         events = []
-        for item in result.get("items", []):
-            event = {
-                "id": item["link"],
-                "title": item["title"],
-                "description": item.get("snippet", ""),
-                "url": item["link"],
-                "location": {
-                    "address": location,
-                    "coordinates": extract_coordinates(item),
-                },
-                "date": extract_date(item),
-                "type": "running",
-                "distance": extract_distance(item),
-            }
-            events.append(event)
+        if "items" in result:
+            for item in result["items"]:
+                event = extract_event_details(item)
+                events.append(event)
 
         return events
 
     except Exception as e:
-        raise Exception(f"Failed to search events: {str(e)}")
-
-
-def extract_coordinates(item: Dict) -> Dict[str, float]:
-    """Extract coordinates from search result if available."""
-    # TODO: Implement coordinate extraction
-    return {"lat": 0, "lng": 0}
-
-
-def extract_date(item: Dict) -> str:
-    """Extract event date from search result."""
-    # TODO: Implement date extraction using NLP
-    return (datetime.now() + timedelta(days=30)).isoformat()
-
-
-def extract_distance(item: Dict) -> str:
-    """Extract race distance from search result."""
-    # TODO: Implement distance extraction using regex
-    return "5K"
+        # Log error and return empty list
+        print(f"Error searching for events: {e}")
+        return []

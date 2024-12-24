@@ -1,0 +1,36 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+
+jobs:
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+
+    - name: Deploy Backend
+      id: deploy
+      run: |
+        cd backend
+        gcloud functions deploy runon-api \
+          --runtime python311 \
+          --trigger-http \
+          --allow-unauthenticated \
+          --region ${{ secrets.GCP_REGION }} \
+          --set-env-vars "ENVIRONMENT=production,GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" 
