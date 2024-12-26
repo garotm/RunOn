@@ -26,13 +26,10 @@ jobs:
         pip install -r requirements.txt
         pip install -r requirements-dev.txt
     
-    - name: Run linting and tests
+    - name: Run tests and linting
       run: |
         cd backend
-        black . --check
-        isort . --check
-        flake8 .
-        pytest --cov=. --cov-report=xml --cov-report=term-missing
+        bash scripts/format_and_lint.sh
         
     - name: Store coverage report
       uses: actions/upload-artifact@v3
