@@ -7,30 +7,38 @@ on:
     branches: [ main, mvp ]
 
 jobs:
-  backend:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Shallow clones disabled for better SonarCloud reporting
+    
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.9'
+    
     - name: Install dependencies
       run: |
         cd backend
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements-dev.txt
+    
     - name: Run tests and linting
       run: |
         cd backend
         bash scripts/format_and_lint.sh
 
   sonarcloud:
-    needs: backend
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
