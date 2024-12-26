@@ -1,48 +1,47 @@
+"""Environment configuration."""
+
 import os
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class Environment:
     """Environment configuration management."""
-    
-    _config = None  # Class variable to store configuration
-    
-    @staticmethod
-    def get_required(key: str) -> str:
-        """Get required environment variable."""
-        value = os.getenv(key)
-        if not value:
-            raise ValueError(f'Required environment variable {key} not set')
-        return value
-    
+
+    _config: Dict[str, Any] = None
+
     @classmethod
     def get_config(cls) -> Dict[str, Any]:
         """Get all configuration values."""
         if cls._config is None:
-            # First check required variables
-            required_vars = ['GOOGLE_CLIENT_ID', 'APPLE_CLIENT_ID', 'JWT_SECRET_KEY']
-            missing_vars = [var for var in required_vars if not os.getenv(var)]
-            
-            if missing_vars:
-                raise ValueError(f'Required environment variables not set: {", ".join(missing_vars)}')
-            
+            # Check all required variables first
+            required_vars = ["JWT_SECRET_KEY", "GOOGLE_CLIENT_ID", "APPLE_CLIENT_ID"]
+            missing = [var for var in required_vars if not os.getenv(var)]
+
+            if missing:
+                raise ValueError("Required environment variables not set: " + ", ".join(missing))
+
             cls._config = {
-                'GOOGLE_CLIENT_ID': os.getenv('GOOGLE_CLIENT_ID'),
-                'APPLE_CLIENT_ID': os.getenv('APPLE_CLIENT_ID'),
-                'JWT_SECRET_KEY': os.getenv('JWT_SECRET_KEY'),
-                'ENVIRONMENT': os.getenv('ENVIRONMENT', 'development')  # Default to 'development'
+                "ENVIRONMENT": cls.get("ENVIRONMENT", "development"),
+                "JWT_SECRET_KEY": cls.get_required("JWT_SECRET_KEY"),
+                "GOOGLE_CLIENT_ID": cls.get_required("GOOGLE_CLIENT_ID"),
+                "APPLE_CLIENT_ID": cls.get_required("APPLE_CLIENT_ID"),
             }
         return cls._config
-    
-    @classmethod
-    def initialize(cls, testing: bool = False) -> None:
-        """Initialize configuration."""
-        if testing:
-            cls._config = {
-                'GOOGLE_CLIENT_ID': 'test-google-id',
-                'APPLE_CLIENT_ID': 'test-apple-id',
-                'JWT_SECRET_KEY': 'test-secret-key',
-                'ENVIRONMENT': 'development'  # Changed from 'test' to 'development'
-            }
-        else:
-            cls._config = None  # Force reloading of config
+
+    @staticmethod
+    def get(key: str, default: Any = None) -> Any:
+        """Get environment variable with default."""
+        return os.getenv(key, default)
+
+    @staticmethod
+    def get_required(key: str) -> str:
+        """Get required environment variable."""
+        value = os.getenv(key)
+        if value is None:
+            raise ValueError(f"Required environment variable {key} not set")
+        return value
+
+    @staticmethod
+    def is_testing() -> bool:
+        """Check if running in test environment."""
+        return Environment.get("ENVIRONMENT") == "test"

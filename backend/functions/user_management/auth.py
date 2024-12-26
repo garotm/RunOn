@@ -1,42 +1,47 @@
-import os
-from typing import Any, Dict, Optional
+"""Authentication functionality."""
 
-import jwt
-from google.auth.transport import requests as google_requests
+from typing import Any, Dict
+
+from google.auth.transport import requests
 from google.oauth2 import id_token
+
+from security.jwt_manager import create_token, verify_token
 
 
 def verify_google_token(token: str) -> Dict[str, Any]:
     """Verify Google OAuth token."""
-    return id_token.verify_oauth2_token(
-        token, google_requests.Request(), os.getenv("GOOGLE_CLIENT_ID")
-    )
+    try:
+        return id_token.verify_oauth2_token(token, requests.Request())
+    except ValueError as e:
+        raise ValueError(f"Invalid token: {str(e)}")
 
 
-def create_session_token(user: Any) -> str:
+def create_session_token(user: Dict[str, Any]) -> str:
     """Create a session token for the user.
 
     Args:
-        user: User object
+        user: User data dictionary
 
     Returns:
         str: JWT session token
     """
-    payload = {"sub": user.id, "email": user.email, "name": user.name}
+    payload = {"sub": user["id"], "email": user["email"], "name": user.get("name", "")}
+    return create_token(payload)
 
-    return jwt.encode(payload, os.getenv("JWT_SECRET_KEY"), algorithm="HS256")
 
-
-def verify_session_token(token: str) -> Optional[Dict[str, Any]]:
-    """Verify a session token.
+def verify_session_token(token: str) -> Dict[str, Any]:
+    """Verify session token.
 
     Args:
-        token: JWT token to verify
+        token: JWT token string
 
     Returns:
-        Dict containing user information or None if invalid
+        Dict: Token payload if valid
+
+    Raises:
+        ValueError: If token is invalid
     """
-    try:
-        return jwt.decode(token, os.getenv("JWT_SECRET_KEY"), algorithms=["HS256"])
-    except jwt.InvalidTokenError:
-        return None
+    payload = verify_token(token)
+    if not payload:
+        raise ValueError("Invalid token")
+    return payload
