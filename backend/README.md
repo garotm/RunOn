@@ -10,21 +10,18 @@ Simple backend services for the RunOn Android application.
 ## Setup
 
 1. Install dependencies:
-
 ```bash
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
 ```
 
 2. Run tests:
-
 ```bash
 bash scripts/format_and_lint.sh
 ```
 
 ## Project Structure
-
-```bash
+```
 backend/
 ├── functions/           # Core functionality
 │   ├── event_discovery/ # Event search
