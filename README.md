@@ -128,7 +128,7 @@ RunOn/backend/
 ├── models
 │   ├── __init__.py
 │   └── event.py
-├─�� monitoring
+├── monitoring
 │   ├── __init__.py
 │   └── logger.py
 ├── pyproject.toml
@@ -172,7 +172,7 @@ RunOn/backend/
     │   ├── test_jwt_manager.py
     │   ├── test_middleware.py
     │   └── test_rate_limiter.py
-    ├─�� test_basic.py
+    ├── test_basic.py
     └── user_management
         ├── __init__.py
         ├── test_auth.py
@@ -202,3 +202,12 @@ This project is licensed under the terms of the [LICENSE](LICENSE) file in the r
 
 ---
 Maintained by the fleXRP team
+
+## Branch Strategy
+
+- `main`: Contains MVP implementation
+- `full-featured`: Contains full implementation with advanced features:
+  - Advanced monitoring
+  - Infrastructure as code
+  - Complex security features
+  - Full user management
