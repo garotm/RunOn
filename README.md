@@ -128,7 +128,7 @@ RunOn/backend/
 ├── models
 │   ├── __init__.py
 │   └── event.py
-├── monitoring
+├─�� monitoring
 │   ├── __init__.py
 │   └── logger.py
 ├── pyproject.toml
@@ -172,7 +172,7 @@ RunOn/backend/
     │   ├── test_jwt_manager.py
     │   ├── test_middleware.py
     │   └── test_rate_limiter.py
-    ├── test_basic.py
+    ├─�� test_basic.py
     └── user_management
         ├── __init__.py
         ├── test_auth.py
@@ -198,7 +198,7 @@ RunOn/backend/
 
 ## License
 
-This project is licensed under the terms of the license file in the root directory.
+This project is licensed under the terms of the [LICENSE](LICENSE) file in the root directory.
 
 ---
 Maintained by the fleXRP team
