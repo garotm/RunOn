@@ -1,10 +1,18 @@
+"""Test fixtures and configuration."""
 import os
-import sys
-from pathlib import Path
 
-# Get the absolute path to the backend directory
-backend_dir = Path(__file__).parent.parent.absolute()
+import pytest
 
-# Add the backend directory to Python path
-if str(backend_dir) not in sys.path:
-    sys.path.insert(0, str(backend_dir))
+
+@pytest.fixture(autouse=True)
+def setup_test_env():
+    """Setup test environment."""
+    os.environ["ENVIRONMENT"] = "test"
+    os.environ["JWT_SECRET_KEY"] = "test-key"
+    os.environ["GOOGLE_SEARCH_API_KEY"] = "test-search-key"
+    os.environ["GOOGLE_SEARCH_ENGINE_ID"] = "test-engine-id"
+    yield
+    os.environ.pop("ENVIRONMENT", None)
+    os.environ.pop("JWT_SECRET_KEY", None)
+    os.environ.pop("GOOGLE_SEARCH_API_KEY", None)
+    os.environ.pop("GOOGLE_SEARCH_ENGINE_ID", None)

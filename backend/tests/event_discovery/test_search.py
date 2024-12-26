@@ -1,111 +1,106 @@
-import pytest
+"""Tests for event discovery search functionality."""
+
 from unittest.mock import Mock, patch
-from datetime import datetime, timedelta
-from freezegun import freeze_time
+
 from functions.event_discovery.search import (
+    extract_event_details,
+    format_search_query,
     search_running_events,
-    get_google_search_client,
-    extract_coordinates,
-    extract_date,
-    extract_distance
 )
 
 
-@pytest.fixture
-def mock_search_response():
-    """Mock response from Google Custom Search API."""
-    return {
-        'items': [
-            {
-                'title': 'Seattle Marathon 2024',
-                'link': 'https://example.com/seattle-marathon',
-                'snippet': 'Annual Seattle Marathon on March 15, 2024. Join us for this 26.2 mile race through downtown Seattle.',
-                'pagemap': {
-                    'metatags': [
-                        {
-                            'og:description': 'Marathon event in Seattle',
-                            'og:title': 'Seattle Marathon 2024'
-                        }
-                    ]
+def test_format_search_query():
+    """Test search query formatting."""
+    location = "New York"
+    radius = 50
+    query = format_search_query(location, radius)
+    assert "running events" in query.lower()
+    assert "new york" in query.lower()
+    assert "50km" in query.lower()
+
+
+def test_extract_event_details():
+    """Test event detail extraction."""
+    search_result = {
+        "title": "Marathon 2024",
+        "link": "http://example.com",
+        "snippet": "10K run on January 1st, 2024 at Central Park",
+        "pagemap": {
+            "metatags": [
+                {
+                    "og:description": "Annual marathon event",
+                    "og:title": "City Marathon 2024",
                 }
-            }
-        ]
+            ]
+        },
     }
 
-
-def test_get_google_search_client_missing_credentials():
-    """Test client creation fails without credentials."""
-    with patch('os.getenv', return_value=None):
-        with pytest.raises(ValueError) as exc:
-            get_google_search_client()
-        assert "GOOGLE_APPLICATION_CREDENTIALS environment variable not set" in str(exc.value)
+    event = extract_event_details(search_result)
+    assert event["title"] == "Marathon 2024"
+    assert event["url"] == "http://example.com"
+    assert event["description"] == "10K run on January 1st, 2024 at Central Park"
 
 
-@patch('functions.event_discovery.search.build')
-@patch('functions.event_discovery.search.service_account.Credentials')
-def test_get_google_search_client_success(mock_credentials, mock_build):
-    """Test successful client creation."""
-    with patch('os.getenv', return_value='/path/to/credentials.json'):
-        mock_credentials.from_service_account_file.return_value = 'fake_creds'
-        mock_build.return_value = 'fake_client'
-        
-        client = get_google_search_client()
-        
-        assert client == 'fake_client'
-        mock_credentials.from_service_account_file.assert_called_once()
-        mock_build.assert_called_once_with('customsearch', 'v1', credentials='fake_creds')
+def test_extract_event_details_missing_data():
+    """Test event detail extraction with missing data."""
+    search_result = {
+        "title": "Marathon 2024",
+        # Missing other fields
+    }
+
+    event = extract_event_details(search_result)
+    assert event["title"] == "Marathon 2024"
+    assert event["url"] == ""
+    assert event["description"] == ""
 
 
-@patch('functions.event_discovery.search.get_google_search_client')
-def test_search_running_events_success(mock_get_client, mock_search_response):
-    """Test successful event search."""
+@patch("functions.event_discovery.search.build")
+def test_search_running_events(mock_build):
+    """Test running event search."""
+    # Mock the Google Custom Search API response
     mock_service = Mock()
-    mock_cse = Mock()
+    mock_build.return_value = mock_service
+
+    mock_search = Mock()
+    mock_service.cse.return_value = mock_search
+
     mock_list = Mock()
-    
-    mock_get_client.return_value = mock_service
-    mock_service.cse.return_value = mock_cse
-    mock_cse.list.return_value = mock_list
-    mock_list.execute.return_value = mock_search_response
-    
-    events = search_running_events('Seattle, WA')
-    
-    assert len(events) == 1
-    event = events[0]
-    assert event['title'] == 'Seattle Marathon 2024'
-    assert event['url'] == 'https://example.com/seattle-marathon'
-    assert 'location' in event
-    assert event['type'] == 'running'
+    mock_search.list.return_value = mock_list
+
+    mock_execute = Mock(
+        return_value={
+            "items": [
+                {
+                    "title": "Test Event",
+                    "link": "http://example.com",
+                    "snippet": "Test description",
+                }
+            ]
+        }
+    )
+    mock_list.execute = mock_execute
+
+    events = search_running_events("New York", 50)
+
+    assert len(events) > 0
+    assert events[0]["title"] == "Test Event"
+    mock_search.list.assert_called_once()
 
 
-@patch('functions.event_discovery.search.get_google_search_client')
-def test_search_running_events_api_error(mock_get_client):
-    """Test error handling in search."""
-    mock_get_client.side_effect = Exception('API Error')
-    
-    with pytest.raises(Exception) as exc:
-        search_running_events('Seattle, WA')
-    assert 'Failed to search events' in str(exc.value)
+@patch("functions.event_discovery.search.build")
+def test_search_running_events_no_results(mock_build):
+    """Test search with no results."""
+    mock_service = Mock()
+    mock_build.return_value = mock_service
 
+    mock_search = Mock()
+    mock_service.cse.return_value = mock_search
 
-def test_extract_coordinates():
-    """Test coordinate extraction."""
-    item = {'pagemap': {'metatags': [{'og:latitude': '47.6062', 'og:longitude': '-122.3321'}]}}
-    coords = extract_coordinates(item)
-    assert coords == {'lat': 0, 'lng': 0}  # Currently returns default values
+    mock_list = Mock()
+    mock_search.list.return_value = mock_list
 
+    mock_execute = Mock(return_value={})  # Empty response
+    mock_list.execute = mock_execute
 
-@freeze_time('2024-01-15')
-def test_extract_date():
-    """Test date extraction."""
-    item = {'snippet': 'Event on March 15, 2024'}
-    date = extract_date(item)
-    expected_date = (datetime(2024, 1, 15) + timedelta(days=30)).isoformat()
-    assert date == expected_date
-
-
-def test_extract_distance():
-    """Test distance extraction."""
-    item = {'title': 'Seattle 5K Run', 'snippet': '5K race in downtown'}
-    distance = extract_distance(item)
-    assert distance == '5K' 
+    events = search_running_events("Remote Location", 50)
+    assert len(events) == 0

@@ -1,0 +1,32 @@
+openapi: 3.1.0
+info:
+  title: RunOn! API
+  version: 1.0.0
+  description: API documentation for RunOn! running event discovery platform
+paths:
+  /events:
+    get:
+      summary: List running events
+      operationId: listEvents
+      parameters:
+        - name: location
+          in: query
+          description: Location to search for events
+          required: true
+          schema:
+            type: string
+        - name: radius
+          in: query
+          description: Search radius in kilometers
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event' 

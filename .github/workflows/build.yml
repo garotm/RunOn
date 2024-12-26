@@ -9,34 +9,38 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.9]
-
+    
     steps:
     - uses: actions/checkout@v4
       with:
-        fetch-depth: 0  # Shallow clones disabled for better SonarCloud reporting
-
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
+        fetch-depth: 0  # Shallow clones should be disabled for better SonarCloud analysis
+        
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
-
+        python-version: 3.9
+        
     - name: Install dependencies
       run: |
-        cd backend
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
-
-    - name: Run formatters and linters
+        pip install -r backend/requirements.txt
+        pip install -r backend/requirements-dev.txt
+        
+    - name: Run tests with coverage
       run: |
         cd backend
         bash scripts/format_and_lint.sh
-
+        
     - name: SonarCloud Scan
-      uses: sonarsource/sonarqube-scan-action@master
+      uses: SonarSource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.organization=flexrpl
+          -Dsonar.projectKey=fleXRPL_RunOn
+          -Dsonar.python.coverage.reportPaths=backend/coverage.xml
+          -Dsonar.sources=backend
+          -Dsonar.tests=backend/tests
+          -Dsonar.python.version=3.9

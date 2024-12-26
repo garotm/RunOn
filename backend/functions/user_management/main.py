@@ -21,9 +21,7 @@ def manage_user(request: Request) -> Tuple[Dict[str, Any], int]:
     auth_header = request.headers.get("Authorization", "")
     if not auth_header.startswith("Bearer "):
         return (
-            jsonify(
-                {"error": "Missing or invalid authorization header", "status": 401}
-            ),
+            jsonify({"error": "Missing or invalid authorization header", "status": 401}),
             401,
         )
 
@@ -94,9 +92,7 @@ def handle_login(request: Request) -> Tuple[Dict[str, Any], int]:
         session_token = create_session_token(user)
 
         return (
-            jsonify(
-                {"status": "success", "token": session_token, "user": user.to_dict()}
-            ),
+            jsonify({"status": "success", "token": session_token, "user": user.to_dict()}),
             200,
         )
 

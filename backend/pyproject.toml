@@ -1,9 +1,35 @@
+[tool.poetry]
+name = "runon-backend"
+version = "0.1.0"
+description = "Backend services for RunOn! running event discovery platform"
+authors = ["Your Name <your.email@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.68.0"
+pydantic = "^1.8.2"
+google-cloud-firestore = "^2.3.4"
+google-cloud-functions = "^1.4.0"
+opencensus-ext-stackdriver = "^0.8.0"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-cov = "^2.12.1"
+black = "^21.7b0"
+isort = "^5.9.3"
+flake8 = "^3.9.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.black]
-line-length = 88
-target-version = ['py311']
+line-length = 100
+target-version = ['py39']
 include = '\.pyi?$'
 
 [tool.isort]
 profile = "black"
 multi_line_output = 3
-line_length = 88
+line_length = 100

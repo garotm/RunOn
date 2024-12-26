@@ -29,9 +29,7 @@ def sync_calendar(request) -> Tuple[Dict[str, Any], int]:
     auth_header = request.headers.get("Authorization", "")
     if not auth_header.startswith("Bearer "):
         return (
-            jsonify(
-                {"error": "Missing or invalid authorization header", "status": 401}
-            ),
+            jsonify({"error": "Missing or invalid authorization header", "status": 401}),
             401,
         )
 
@@ -62,9 +60,7 @@ def sync_calendar(request) -> Tuple[Dict[str, Any], int]:
             )
 
         # Create credentials from the token
-        credentials = Credentials(
-            token=token, scopes=["https://www.googleapis.com/auth/calendar"]
-        )
+        credentials = Credentials(token=token, scopes=["https://www.googleapis.com/auth/calendar"])
 
         # Get calendar service
         service = get_calendar_service(credentials)
