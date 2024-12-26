@@ -4,7 +4,7 @@ functions-framework==3.8.*
 google-cloud-firestore==2.19.*
 google-auth==2.27.*
 google-auth-oauthlib==1.2.*
-google-auth-httplib2==0.1.*
+google-auth-httplib2==0.2.*
 google-api-python-client==2.116.*
 pyjwt==2.10.*
 requests==2.32.*
