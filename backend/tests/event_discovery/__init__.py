@@ -1,1 +1,1 @@
-"""Tests for event discovery package."""
+"""Event discovery test package."""

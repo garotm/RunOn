@@ -1,4 +1,4 @@
-"""Database models package."""
+"""Data models package."""
 
 from .event import Event
 
