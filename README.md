@@ -63,15 +63,18 @@ bash format_and_lint.sh
 ## Project Structure
 
 ```python
-RunOn/
+RunOn/backend/
 .
+├── README.md
 ├── config
 │   ├── __init__.py
 │   ├── environment.py
 │   └── settings.py
 ├── coverage.xml
+├── coveragerc
 ├── docs
-│   └── __init__.py
+│   ├── __init__.py
+│   └── openapi.yaml
 ├── functions
 │   ├── __init__.py
 │   ├── calendar_sync
@@ -88,12 +91,30 @@ RunOn/
 │       ├── function.yaml
 │       ├── main.py
 │       └── models.py
+├── infrastructure
+│   ├── __init__.py
+│   └── terraform
+│       ├── main.tf
+│       ├── outputs.tf
+│       └── variables.tf
+├── models
+│   ├── __init__.py
+│   └── event.py
+├── monitoring
+│   ├── __init__.py
+│   └── logger.py
 ├── pyproject.toml
+├── pytest.ini
 ├── requirements-dev.txt
 ├── requirements.txt
 ├── scripts
 │   ├── cleanup_env.sh
 │   └── format_and_lint.sh
+├── security
+│   ├── __init__.py
+│   ├── jwt_manager.py
+│   ├── middleware.py
+│   └── rate_limiter.py
 └── tests
     ├── __init__.py
     ├── calendar_sync
@@ -109,13 +130,28 @@ RunOn/
     │   ├── __init__.py
     │   ├── test_event_discovery.py
     │   └── test_search.py
+    ├── infrastructure
+    │   ├── __init__.py
+    │   └── test_terraform.py
+    ├── models
+    │   ├── __init__.py
+    │   └── test_event.py
+    ├── monitoring
+    │   ├── __init__.py
+    │   └── test_logger.py
+    ├── security
+    │   ├── __init__.py
+    │   ├── test_jwt_manager.py
+    │   ├── test_middleware.py
+    │   └── test_rate_limiter.py
+    ├── test_basic.py
     └── user_management
         ├── __init__.py
         ├── test_auth.py
         ├── test_main.py
         └── test_models.py
 
-23 directories, 44 files
+40 directories, 143 files
 ```
 
 ## Contributing
