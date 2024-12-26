@@ -1,7 +1,7 @@
 # Core dependencies
 flask==3.1.*
 functions-framework==3.5.*
-google-cloud-firestore==2.13.*
+google-cloud-firestore==2.19.*
 google-auth==2.27.*
 google-auth-oauthlib==1.2.*
 google-auth-httplib2==0.1.*
