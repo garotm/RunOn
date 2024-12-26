@@ -15,6 +15,9 @@ python-jose[cryptography]==3.3.0
 python-multipart==0.0.18
 python-dotenv==1.0.0
 
+# Caching
+redis==5.0.*
+
 # Monitoring
 opencensus-ext-stackdriver==0.8.0
 opencensus==0.11.0
