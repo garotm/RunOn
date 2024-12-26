@@ -11,7 +11,7 @@ android/
 ├── app/
 │   ├── src/
 │   │   ├── main/
-│   │   │   ├── java/com/flexrpl/runon/
+│   │   │   ├── kotlin/com/flexrpl/runon/
 │   │   │   │   ├── activities/         # Main UI activities
 │   │   │   │   ├── fragments/          # UI fragments
 │   │   │   │   ├── models/             # Data models
