@@ -100,4 +100,4 @@ The project follows the official Kotlin style guide and Android best practices:
 
 ## License
 
-[License details here]
+This project is licensed under the terms of the [LICENSE](../LICENSE) file in the root directory.
