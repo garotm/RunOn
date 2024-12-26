@@ -31,11 +31,32 @@ RunOn helps runners find and participate in local running events by providing:
   - Google Calendar API for event management
   - Custom REST APIs for user management
 
+### Android App
+
+- **Language**: Kotlin
+- **UI Framework**: Jetpack Compose
+- **Architecture**: MVVM with Clean Architecture
+- **Key Features**:
+  - Native Android UI components
+  - Offline support
+  - Background sync services
+  - Material Design 3 implementation
+
+For detailed Android documentation, see our [Wiki](https://github.com/fleXRPL/RunOn/wiki):
+- [Android Technical Stack](https://github.com/fleXRPL/RunOn/wiki/Android-Technical-Stack)
+- [Android Architecture](https://github.com/fleXRPL/RunOn/wiki/Android-Architecture)
+- [Development Guide](https://github.com/fleXRPL/RunOn/wiki/Android-Development-Guide)
+- [Implementation Plan](https://github.com/fleXRPL/RunOn/wiki/Android-Implementation-Plan)
+
 ### Testing
 
 - Unit tests with pytest
 - 100% code coverage requirement
 - Automated linting and formatting
+- Android instrumentation tests
+- UI automation tests
+
+See our [Testing Strategy](https://github.com/fleXRPL/RunOn/wiki/Testing-Strategy) for detailed testing documentation.
 
 ## Development Setup
 
@@ -58,6 +79,13 @@ pip install -r requirements-dev.txt
 
 ```bash
 bash format_and_lint.sh
+```
+
+4. Android Setup:
+
+```bash
+cd ../android
+./gradlew build
 ```
 
 ## Project Structure
