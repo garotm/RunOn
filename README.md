@@ -17,30 +17,27 @@ RunOn helps runners find and participate in local running events by providing:
 
 - Event discovery based on location
 - Calendar integration for event management
-- User profiles and preferences
+- Simple Google Calendar integration
 - Real-time event updates and notifications
 
 ## Architecture
 
 ### Backend
 
-- **Framework**: Google Cloud Functions
-- **Language**: Python 3.9+
-- **APIs**: 
+**APIs**: 
   - Google Search API for event discovery
   - Google Calendar API for event management
-  - Custom REST APIs for user management
 
 ### Android App
 
+**Architecture**: Simple Android Architecture
+
 - **Language**: Kotlin
 - **UI Framework**: Jetpack Compose
-- **Architecture**: MVVM with Clean Architecture
 - **Key Features**:
-  - Native Android UI components
-  - Offline support
-  - Background sync services
   - Material Design 3 implementation
+  - Direct Google Calendar integration
+  - Google Sign-in
 
 For detailed Android documentation, see our [Wiki](https://github.com/fleXRPL/RunOn/wiki):
 - [Android Technical Stack](https://github.com/fleXRPL/RunOn/wiki/Android-Technical-Stack)
@@ -54,7 +51,6 @@ For detailed Android documentation, see our [Wiki](https://github.com/fleXRPL/Ru
 - 100% code coverage requirement
 - Automated linting and formatting
 - Android instrumentation tests
-- UI automation tests
 
 See our [Testing Strategy](https://github.com/fleXRPL/RunOn/wiki/Testing-Strategy) for detailed testing documentation.
 
@@ -96,90 +92,23 @@ RunOn/backend/
 ├── README.md
 ├── config
 │   ├── __init__.py
-│   ├── environment.py
-│   └── settings.py
-├── coverage.xml
-├── coveragerc
-├── docs
-│   ├── __init__.py
-│   └── openapi.yaml
-├── functions
-│   ├── __init__.py
-│   ├── calendar_sync
-│   │   ├── __init__.py
-│   │   ├── calendar.py
-│   │   └── main.py
-│   ├── event_discovery
-│   │   ├── __init__.py
-│   │   ├── main.py
-│   │   └── search.py
-│   └── user_management
-│       ├── __init__.py
-│       ├── auth.py
-│       ├── function.yaml
-│       ├── main.py
-│       └── models.py
-├── infrastructure
-│   ├── __init__.py
-│   └── terraform
-│       ├── main.tf
-│       ├── outputs.tf
-│       └── variables.tf
+│   └── environment.py
 ├── models
 │   ├── __init__.py
 │   └── event.py
-├── monitoring
-│   ├── __init__.py
-│   └── logger.py
-├── pyproject.toml
-├── pytest.ini
-├── requirements-dev.txt
-├── requirements.txt
-├── scripts
-│   ├── cleanup_env.sh
-│   └── format_and_lint.sh
-├── security
-│   ├── __init__.py
-│   ├── jwt_manager.py
-│   ├── middleware.py
-│   └── rate_limiter.py
+├── functions
+│   ├── event_discovery
+│   │   ├── __init__.py
+│   │   └── search.py
+│   └── calendar_sync
+│       ├── __init__.py
+│       └── calendar.py
 └── tests
     ├── __init__.py
-    ├── calendar_sync
-    │   ├── __init__.py
-    │   ├── test_calendar.py
-    │   ├── test_calendar_sync.py
-    │   └── test_main.py
-    ├── config
-    │   ├── __init__.py
-    │   └── test_environment.py
-    ├── conftest.py
     ├── event_discovery
-    │   ├── __init__.py
-    │   ├── test_event_discovery.py
     │   └── test_search.py
-    ├── infrastructure
-    │   ├── __init__.py
-    │   └── test_terraform.py
-    ├── models
-    │   ├── __init__.py
-    │   └── test_event.py
-    ├── monitoring
-    │   ├── __init__.py
-    │   └── test_logger.py
-    ├── security
-    │   ├── __init__.py
-    │   ├── test_jwt_manager.py
-    │   ├── test_middleware.py
-    │   └── test_rate_limiter.py
-    ├── test_basic.py
-    └── user_management
-        ├── __init__.py
-        ├── test_auth.py
-        ├── test_main.py
-        └── test_models.py
-
-40 directories, 143 files
+    └── calendar_sync
+        └── test_calendar.py
 ```
 
 ## Contributing

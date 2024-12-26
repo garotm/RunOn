@@ -1,38 +1,31 @@
+"""Event model for running events."""
+from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Dict, List, Optional
-
-from pydantic import BaseModel, Field
+from typing import Optional
 
 
-class Event(BaseModel):
-    """Running event model."""
+@dataclass
+class Event:
+    """Running event details."""
 
-    id: str = Field(..., description="Unique event identifier")
-    title: str = Field(..., min_length=1, max_length=200)
-    description: Optional[str] = Field(None, max_length=2000)
+    name: str
     date: datetime
-    location: Dict[str, Any] = Field(..., description="Event location details")
-    distance: Optional[float] = Field(None, description="Event distance in kilometers")
-    event_type: str = Field(..., description="Type of running event")
-    organizer_id: str = Field(..., description="Event organizer's user ID")
-    max_participants: Optional[int] = None
-    current_participants: int = Field(default=0)
-    status: str = Field(default="scheduled")
-    tags: List[str] = Field(default_factory=list)
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    location: str
+    description: Optional[str] = None
+    url: Optional[str] = None
 
-    class Config:
-        schema_extra = {
-            "example": {
-                "title": "City Marathon 2024",
-                "description": "Annual city marathon event",
-                "date": "2024-04-15T08:00:00Z",
-                "location": {
-                    "address": "Central Park, New York",
-                    "coordinates": {"lat": 40.7829, "lng": -73.9654},
-                },
-                "distance": 42.195,
-                "event_type": "marathon",
-            }
+    def to_calendar_event(self) -> dict:
+        """Convert to Google Calendar event format."""
+        return {
+            "summary": self.name,
+            "location": self.location,
+            "description": self.description or "",
+            "start": {
+                "dateTime": self.date.isoformat(),
+                "timeZone": "UTC",
+            },
+            "end": {
+                "dateTime": self.date.isoformat(),
+                "timeZone": "UTC",
+            },
         }

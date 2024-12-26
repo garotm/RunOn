@@ -2,10 +2,10 @@
 flask==3.1.*
 functions-framework==3.8.*
 google-cloud-firestore==2.19.*
-google-auth==2.27.*
-google-auth-oauthlib==1.2.*
+google-auth>=2.0.0
+google-auth-oauthlib>=0.4.0
 google-auth-httplib2==0.2.*
-google-api-python-client==2.116.*
+google-api-python-client>=2.0.0
 pyjwt==2.10.*
 requests==2.32.*
 python-dateutil==2.9.*
@@ -13,7 +13,7 @@ fastapi==0.104.1
 pydantic==2.4.2
 python-jose[cryptography]==3.3.0
 python-multipart==0.0.18
-python-dotenv==1.0.0
+python-dotenv>=0.19.0
 
 # Caching
 redis==5.0.*
