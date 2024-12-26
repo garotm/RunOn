@@ -17,8 +17,8 @@ def mock_calendar_service():
         yield service
 
 
-def test_add_event_to_calendar(mock_calendar_service):
-    """Test adding event to calendar."""
+def test_add_event_to_calendar_success(mock_calendar_service):
+    """Test successfully adding event to calendar."""
     event = Event(
         name="Test Run",
         date=datetime.now(),
@@ -33,3 +33,19 @@ def test_add_event_to_calendar(mock_calendar_service):
 
     result = add_event_to_calendar(event, credentials)
     assert result == "test123"
+
+
+def test_add_event_to_calendar_failure(mock_calendar_service):
+    """Test handling calendar API errors."""
+    event = Event(
+        name="Test Run",
+        date=datetime.now(),
+        location="Test Location",
+    )
+    credentials = MagicMock()
+
+    # Simulate API error
+    mock_calendar_service.events().insert().execute.side_effect = Exception("API Error")
+
+    result = add_event_to_calendar(event, credentials)
+    assert result is None
