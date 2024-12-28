@@ -160,3 +160,75 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# Android
+*.iml
+.gradle/
+local.properties
+.idea/
+.DS_Store
+build/
+captures/
+.externalNativeBuild
+.cxx
+
+# Keystore files
+*.jks
+*.keystore
+!android/keystore/debug.keystore
+
+# Android Studio
+*.iws
+*.ipr
+.idea/
+out/
+
+# Gradle
+.gradle/
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Generated files
+bin/
+gen/
+
+# Log Files
+*.log
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# IntelliJ
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/libraries
+.idea/caches
+
+# VS Code
+.vscode/
+
+# Sonar
+.sonar/
+.scannerwork/
+
+# Test reports
+app/build/reports/
+app/build/test-results/
+
+# Detekt
+build/reports/detekt/
+
+# KtLint
+build/reports/ktlint/
+.gradle/
+
+# Android Studio
+.idea/
