@@ -1,0 +1,11 @@
+complexity:
+  LongMethod:
+    threshold: 60
+  TooManyFunctions:
+    thresholdInFiles: 20
+    thresholdInClasses: 20
+    thresholdInInterfaces: 20
+
+style:
+  MaxLineLength:
+    maxLineLength: 120 

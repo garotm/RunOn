@@ -1,0 +1,9 @@
+INFO    | Android emulator version 35.2.10.0 (build_id 12414864) (CL:N/A)
+INFO    | Graphics backend: gfxstream
+WARNING | Failed to process .ini file /Users/garotconklin/.android/avd/RunOnEmulator.avd/config.ini for reading.
+WARNING | Failed to process .ini file /Users/garotconklin/.android/avd/RunOnEmulator.avd/config.ini for reading.
+PANIC: CPU Architecture 'arm' is not supported by the QEMU2 emulator, (the classic engine is deprecated!)INFO    | Android emulator version 35.2.10.0 (build_id 12414864) (CL:N/A)
+INFO    | Graphics backend: gfxstream
+WARNING | Failed to process .ini file /Users/garotconklin/.android/avd/RunOnEmulator.avd/config.ini for reading.
+WARNING | Failed to process .ini file /Users/garotconklin/.android/avd/RunOnEmulator.avd/config.ini for reading.
+PANIC: CPU Architecture 'arm' is not supported by the QEMU2 emulator, (the classic engine is deprecated!)
