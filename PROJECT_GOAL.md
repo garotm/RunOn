@@ -54,14 +54,23 @@ Instructions:
 7.  Error Handling:
     *   Implement appropriate error handling in each function (e.g., for invalid tokens, API errors, network issues).
     *   Ensure that all linting and coverage tests pass.
+    *   Implement robust error handling for all functions and endpoints.
+    *   Handle invalid tokens, API errors, network issues, and other potential problems.
+    *   Return informative error messages and appropriate HTTP status codes to the Android app.
 
 8.  Testing:
     *   It is okay to comment out or remove tests that are no longer relevant due to database removal or other changes. We will write new tests later.
     *   Ensure that all remaining or newly created linting and coverage tests pass.
+    *   Remove any existing tests that are no longer relevant.
+    *   Write new unit tests for:
+        *   `verify_google_id_token`
+        *   `search_with_google` (or the function that handles the search functionality)
+        *   The calendar event creation function.
 
 9.  General:
-    *   Please implement all changes to ensure the backend remains runnable locally using `uvicorn`.
+    *   Please implement all changes to ensure the backend should be runnable locally using `uvicorn main:app --reload` (assuming your main file is `main.py`).
     *   Maintain the requirement that all code be imported into the Android Studio application for final emulation and deployment to the Google Play Store.
+    *   Create or use existing scripts in the `/scripts` directory for any repeatable or chained tasks/events.
    
 10.  Documentation:
      *  Amend or create new, comprehensive documentation in the existing WIKI - https://github.com/fleXRPL/RunOn/wiki
