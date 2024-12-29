@@ -1,4 +1,5 @@
 """Tests for event discovery search."""
+
 from datetime import datetime
 
 from functions.event_discovery.search import search_running_events

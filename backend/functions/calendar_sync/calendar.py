@@ -1,4 +1,5 @@
 """Calendar sync functionality."""
+
 from typing import Optional
 
 from google.oauth2.credentials import Credentials

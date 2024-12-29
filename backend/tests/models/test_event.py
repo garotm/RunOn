@@ -1,4 +1,5 @@
 """Tests for Event model."""
+
 from datetime import datetime
 
 from models.event import Event
