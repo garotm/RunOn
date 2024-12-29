@@ -1,4 +1,5 @@
 """Event discovery using Google Search."""
+
 from datetime import datetime
 from typing import List
 

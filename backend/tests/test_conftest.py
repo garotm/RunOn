@@ -1,4 +1,5 @@
 """Tests for conftest fixtures."""
+
 from unittest.mock import MagicMock
 
 from google.oauth2.credentials import Credentials
