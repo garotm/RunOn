@@ -74,3 +74,9 @@ Instructions:
    
 10.  Documentation:
      *  Amend or create new, comprehensive documentation in the existing WIKI - https://github.com/fleXRPL/RunOn/wiki
+   
+11.  Example Websites:
+     *  Use the following website and its features as a template for the mobile app we are building.
+        *  I have added this site, https://runningintheusa.com/, to the Google Programmable Search Engine 'Site to Search' attribute referenced in the `RUNON_SEARCH_ENGINE_ID` Variable. 
+           *  https://runningintheusa.com/
+           *  https://runningintheusa.com/race/calendar/
