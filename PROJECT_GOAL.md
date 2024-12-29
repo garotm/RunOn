@@ -18,7 +18,7 @@ Instructions:
     *   To ensure a consistent workflow, NOTHING will be merged into the `main` branch until all tests pass and the build is verified to work locally.
         *   This will require the creation of `feature` branches for all code changes.
      
-3.  Authentication:
+2.  Authentication:
     *   Modify `auth.py` to include a function `verify_google_id_token(token: str) -> dict`.
     *   This function should use the `google-auth` library to verify the Google ID token passed from the Android app.
     *   Verify the token against our Google Cloud Project's client ID (get this from the environment variable `RUNON_CLIENT_ID`).
@@ -26,13 +26,13 @@ Instructions:
     *   If the token is invalid, raise a `ValueError`.
     *   (We are simplifying authentication for the MVP; no user registration/login on the backend is needed for now).
 
-4.  Search Integration:
+3.  Search Integration:
     *   Create a new function (in `app.py`, `search.py`, or a new file if appropriate) called `search_with_google(query: str) -> list`.
     *   This function will use the Custom Search JSON API to perform a web search based on the user's query.
     *   Use the environment variables `GOOGLE_API_KEY` and `SEARCH_ENGINE_ID` for API authentication and the Search Engine ID.
     *   Return a list of search result items (or a simplified representation).
 
-5.  Calendar Event Creation:
+4.  Calendar Event Creation:
     *   Modify the `create_calendar_event` function (or create a new, appropriately named function) in `calendar.py`.
     *   This function should accept a search query parameter (string).
     *   If a search query is provided:
@@ -42,23 +42,26 @@ Instructions:
     *   Use the Google Calendar API (via the `google-api-python-client` library) to create the event on the user's calendar.
     *   Ensure the function interacts correctly with the Google Sign-In flow (using the verified user's credentials).
 
-6.  Database Removal:
+5.  Database Removal:
     *   Remove or comment out any code related to the SQLite database (in `database.py` and any references to it in other files). We are not using a database for the MVP.
 
-7.  Environment Variables:
+6.  Environment Variables:
     *   Make sure the code uses the following environment variables:
         *   `RUNON_CLIENT_ID`
         *   `RUNON_API_KEY`
         *   `RUNON_SEARCH_ENGINE_ID`
 
-8.  Error Handling:
+7.  Error Handling:
     *   Implement appropriate error handling in each function (e.g., for invalid tokens, API errors, network issues).
     *   Ensure that all linting and coverage tests pass.
 
-9.  Testing:
+8.  Testing:
     *   It is okay to comment out or remove tests that are no longer relevant due to database removal or other changes. We will write new tests later.
     *   Ensure that all remaining or newly created linting and coverage tests pass.
 
+9.  General:
+    *   Please implement all changes to ensure the backend remains runnable locally using `uvicorn`.
+    *   Maintain the requirement that all code be imported into the Android Studio application for final emulation and deployment to the Google Play Store.
+   
 10.  Documentation:
-    *  Amend or create new, comprehensive documentation in the existing WIKI - https://github.com/fleXRPL/RunOn/wiki
-
+     *  Amend or create new, comprehensive documentation in the existing WIKI - https://github.com/fleXRPL/RunOn/wiki
