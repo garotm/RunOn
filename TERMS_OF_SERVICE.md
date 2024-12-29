@@ -46,7 +46,7 @@ You agree to defend, indemnify, and hold harmless RunOn, its affiliates, licenso
 
 **Governing Law**
 
-These Terms shall be governed by and construed in accordance with the laws of the State of [Your State], without regard to its conflict of law provisions.
+These Terms shall be governed by and construed in accordance with the laws of the State of New York, without regard to its conflict of law provisions.
 
 **Changes to These Terms**
 
