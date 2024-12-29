@@ -53,7 +53,7 @@ Depending on your location, you may have certain rights regarding your personal 
 *   **The right to data portability.**
 *   **The right to object to the processing of your information.**
 
-To exercise these rights, please contact us at [Your Support Email Address].
+To exercise these rights, please contact us at fleXRPL@gmail.com.
 
 **Children's Privacy**
 
