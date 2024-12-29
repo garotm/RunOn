@@ -1,4 +1,5 @@
 """Tests for calendar sync functionality."""
+
 from datetime import datetime
 from unittest.mock import MagicMock, patch
 
