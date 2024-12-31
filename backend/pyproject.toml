@@ -18,7 +18,7 @@ pytest = "^6.2.5"
 pytest-cov = "^2.12.1"
 black = "^24.3"
 isort = "^5.9.3"
-flake8 = "^3.9.2"
+flake8 = "^7.1.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
