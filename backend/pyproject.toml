@@ -6,7 +6,7 @@ authors = ["Your Name <your.email@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-fastapi = "^0.68.0"
+fastapi = "^0.115.6"
 pydantic = "^1.8.2"
 google-cloud-firestore = "^2.3.4"
 google-cloud-functions = "^1.4.0"
