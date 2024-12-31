@@ -1,1 +1,1 @@
-"""Calendar synchronization package."""
+"""Calendar sync package initialization."""
