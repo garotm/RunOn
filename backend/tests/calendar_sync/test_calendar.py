@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from functions.calendar_sync.calendar import add_event_to_calendar
+from functions.calendar_sync.calendar import add_event_to_calendar, create_events_from_search
 from models.event import Event
 
 
@@ -16,6 +16,21 @@ def mock_calendar_service():
         service = MagicMock()
         mock_build.return_value = service
         yield service
+
+
+@pytest.fixture
+def mock_search():
+    """Mock search functionality."""
+    with patch("functions.calendar_sync.calendar.search_running_events") as mock:
+        mock.return_value = [
+            Event(
+                name="Test Run",
+                date=datetime.now(),
+                location="Test Location",
+                description="Test Description",
+            )
+        ]
+        yield mock
 
 
 def test_add_event_to_calendar_success(mock_calendar_service):
@@ -45,8 +60,31 @@ def test_add_event_to_calendar_failure(mock_calendar_service):
     )
     credentials = MagicMock()
 
-    # Simulate API error
     mock_calendar_service.events().insert().execute.side_effect = Exception("API Error")
 
     result = add_event_to_calendar(event, credentials)
     assert result is None
+
+
+def test_create_events_from_search_success(mock_calendar_service, mock_search):
+    """Test creating events from search results."""
+    mock_calendar_service.events().insert().execute.return_value = {
+        "id": "test123",
+    }
+
+    credentials = MagicMock()
+    event_ids = create_events_from_search("New York", credentials)
+
+    assert len(event_ids) == 1
+    assert event_ids[0] == "test123"
+    mock_search.assert_called_once_with("New York")
+
+
+def test_create_events_from_search_no_results(mock_calendar_service, mock_search):
+    """Test handling no search results."""
+    mock_search.return_value = []
+
+    credentials = MagicMock()
+    event_ids = create_events_from_search("Remote Location", credentials)
+
+    assert len(event_ids) == 0

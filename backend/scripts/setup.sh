@@ -36,6 +36,6 @@ pip install -r requirements-dev.txt
 
 # Run format and lint
 echo "🔍 Running format and lint checks..."
-bash scripts/format_and_lint.sh
+PYTHONPATH=$PYTHONPATH:$(pwd) bash scripts/format_and_lint.sh
 
 echo "✅ Setup complete!" 

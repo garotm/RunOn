@@ -16,4 +16,4 @@ echo "Running flake8 linter..."
 flake8 .
 
 echo "Running pytest with coverage..."
-pytest --cov=. --cov-report=xml --cov-report=term-missing
+PYTHONPATH=$PYTHONPATH:$(pwd) pytest --cov=. --cov-report=xml --cov-report=term-missing

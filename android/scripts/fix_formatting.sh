@@ -3,6 +3,10 @@
 # Exit on error
 set -e
 
+# Set Java version for the session
+export JAVA_HOME=$(/Users/garotconklin/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home)
+export PATH="$JAVA_HOME/bin:$PATH"
+
 echo "🔧 Fixing file formatting..."
 
 # Find all Kotlin files
