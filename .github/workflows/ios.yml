@@ -1,0 +1,69 @@
+name: iOS CI
+
+on:
+  push:
+    branches: [ main, ios-frontend ]
+    paths:
+      - 'ios/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'ios/**'
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: macos-14 # Latest macOS for Xcode 15+
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+
+      - name: Install CocoaPods
+        run: |
+          gem install cocoapods
+          cd ios
+          pod install
+
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.2'
+
+      - name: Install SwiftFormat
+        run: brew install swiftformat
+
+      - name: Format Check
+        run: |
+          cd ios
+          ./scripts/format.sh
+
+      - name: Build and Test
+        run: |
+          cd ios
+          xcodebuild test \
+            -workspace RunOn.xcworkspace \
+            -scheme RunOn \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' \
+            -enableCodeCoverage YES \
+            | xcpretty
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: test-results
+          path: ios/build/reports/
+
+      - name: Upload Coverage
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: code-coverage
+          path: ios/build/reports/coverage 

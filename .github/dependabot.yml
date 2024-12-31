@@ -53,3 +53,18 @@ updates:
     allow:
       - dependency-type: "direct"
       - dependency-type: "indirect"
+
+  # iOS CocoaPods dependencies
+  - package-ecosystem: "cocoapods"
+    directory: "/ios"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "ios"
+    commit-message:
+      prefix: "pod"
+      include: "scope"
+    open-pull-requests-limit: 10
+    versioning-strategy: "auto"
