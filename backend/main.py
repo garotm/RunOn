@@ -29,6 +29,11 @@ async def verify_token(authorization: Optional[str] = Header(None)):
     raise HTTPException(status_code=401, detail="Invalid credentials")
 
 
+def get_mock_events() -> List[str]:
+    """Get mock events for testing."""
+    return ["event1", "event2"]
+
+
 @app.post("/events/search")
 async def search_and_create_events(
     query: str, authorized: bool = Depends(verify_token)
@@ -36,7 +41,7 @@ async def search_and_create_events(
     """Search for events and create them in calendar."""
     try:
         # For now, return a mock response
-        return ["event1", "event2"]
+        return get_mock_events()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

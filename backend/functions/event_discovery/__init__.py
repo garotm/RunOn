@@ -1,1 +1,1 @@
-"""Event discovery package."""
+"""Event discovery package initialization."""

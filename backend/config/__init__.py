@@ -1,4 +1,4 @@
-"""Configuration package."""
+"""Config package initialization."""
 
 from .environment import Environment
 
