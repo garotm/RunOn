@@ -8,6 +8,7 @@
 
 [![Build and Test](https://github.com/fleXRPL/RunOn/actions/workflows/build.yml/badge.svg)](https://github.com/fleXRPL/RunOn/actions/workflows/build.yml)
 [![Android CI](https://github.com/fleXRPL/RunOn/actions/workflows/android.yml/badge.svg)](https://github.com/fleXRPL/RunOn/actions/workflows/android.yml)
+[![iOS CI](https://github.com/fleXRPL/RunOn/actions/workflows/ios.yml/badge.svg)](https://github.com/fleXRPL/RunOn/actions/workflows/ios.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fleXRPL_RunOn&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=fleXRPL_RunOn)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=fleXRPL_RunOn&metric=coverage)](https://sonarcloud.io/summary/new_code?id=fleXRPL_RunOn)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=fleXRPL_RunOn&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=fleXRPL_RunOn)
