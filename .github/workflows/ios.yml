@@ -15,7 +15,7 @@ on:
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: macos-latest
+    runs-on: macos-14
 
     steps:
     - uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
     - name: Set up Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '16.2'
+        xcode-version: '15.2'
     
     - name: Install Dependencies
       run: |
@@ -39,12 +39,11 @@ jobs:
     - name: Run Tests
       run: |
         cd ios/RunOn
-        chmod +x ../scripts/test.sh
-        ../scripts/test.sh
-
+        xcodebuild test -scheme RunOn -destination "platform=iOS Simulator,name=iPhone 15 Pro,OS=17.2" -resultBundlePath TestResults.xcresult
+    
     - name: Upload Test Results
       uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
         name: test-results
-        path: ios/RunOn/build/reports/ 
+        path: ios/RunOn/TestResults.xcresult 
