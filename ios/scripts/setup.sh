@@ -21,8 +21,8 @@ echo "📍 Script directory: $SCRIPT_DIR"
 
 # Check if we're in CI environment (GitHub Actions)
 if [[ "$GITHUB_ACTIONS" == "true" ]]; then
-    # Remove the extra RunOn from the path for CI
-    PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+    # For CI, navigate to the RunOn directory containing the xcodeproj
+    PROJECT_DIR="$(dirname "$SCRIPT_DIR")/RunOn"
 else
     # Local development path
     PROJECT_DIR="$(dirname "$SCRIPT_DIR")/RunOn"
