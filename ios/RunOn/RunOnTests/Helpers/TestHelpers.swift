@@ -4,13 +4,11 @@ import Foundation
 func createMockEvent(id: String = "1") -> Event {
     Event(
         id: id,
-        title: "Test Event",
-        description: "Test Description",
+        name: "Test Event",
         date: Date(),
         location: "Test Location",
-        organizer: "Test Organizer",
-        maxParticipants: 10,
-        currentParticipants: 5,
-        isRegistered: false
+        description: "Test Description",
+        distance: 5.0,
+        registrationDeadline: Date().addingTimeInterval(86400)
     )
 } 

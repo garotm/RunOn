@@ -7,6 +7,8 @@ class MockEventService: EventServiceProtocol {
     
     var fetchUserEventsCalled = false
     var unregisterCalled = false
+    var searchCalled = false
+    var registerCalled = false
     
     init() {} // Add explicit initializer
     
@@ -19,6 +21,7 @@ class MockEventService: EventServiceProtocol {
     }
     
     func searchEvents(query: String) async throws -> [Event] {
+        searchCalled = true
         if let error = mockError {
             throw error
         }
@@ -26,6 +29,7 @@ class MockEventService: EventServiceProtocol {
     }
     
     func registerForEvent(eventId: String) async throws {
+        registerCalled = true
         if let error = mockError {
             throw error
         }
