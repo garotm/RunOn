@@ -12,7 +12,7 @@ class MockAPIClient: APIClientProtocol {
     
     init() {} // Add explicit initializer
     
-    func request<T>(_ endpoint: String, method: HTTPMethod, parameters: Parameters?) async throws -> T where T : Decodable {
+    func request<T>(_ endpoint: String, method: HTTPMethod = .get, parameters: Parameters? = nil) async throws -> T where T : Decodable {
         capturedEndpoint = endpoint
         capturedMethod = method
         capturedParameters = parameters

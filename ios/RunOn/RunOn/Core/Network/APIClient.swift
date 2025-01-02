@@ -24,7 +24,13 @@ enum APIError: Error {
     }
 }
 
-class APIClient {
+protocol APIClientProtocol {
+    func request<T: Decodable>(_ endpoint: String,
+                              method: HTTPMethod,
+                              parameters: Parameters?) async throws -> T
+}
+
+class APIClient: APIClientProtocol {
     let baseURL: String
     
     init(baseURL: String = "https://api.runon.app/v1") {
