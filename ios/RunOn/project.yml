@@ -48,6 +48,11 @@ targets:
       - RunOnTests
     dependencies:
       - target: RunOn
+      - package: Alamofire
+      - package: GoogleSignIn
+        product: GoogleSignIn
+      - package: GoogleSignIn
+        product: GoogleSignInSwift
 
   RunOnUITests:
     type: bundle.ui-testing
@@ -55,4 +60,9 @@ targets:
     sources:
       - RunOnUITests
     dependencies:
-      - target: RunOn 
+      - target: RunOn
+      - package: Alamofire
+      - package: GoogleSignIn
+        product: GoogleSignIn
+      - package: GoogleSignIn
+        product: GoogleSignInSwift 
