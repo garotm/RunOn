@@ -17,10 +17,23 @@ echo "✓ Using Xcode version: $XCODE_VERSION"
 
 # Navigate to the correct iOS project directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(dirname "$SCRIPT_DIR")/RunOn"
+echo "📍 Script directory: $SCRIPT_DIR"
+
+# Check if we're in CI environment (GitHub Actions)
+if [[ "$GITHUB_ACTIONS" == "true" ]]; then
+    # Remove the extra RunOn from the path for CI
+    PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+else
+    # Local development path
+    PROJECT_DIR="$(dirname "$SCRIPT_DIR")/RunOn"
+fi
+
+echo "📍 Target project directory: $PROJECT_DIR"
 cd "$PROJECT_DIR"
 
 echo "📍 Working directory: $(pwd)"
+echo "📂 Directory contents:"
+ls -la
 
 # Verify Xcode project exists
 if [ ! -d "RunOn.xcodeproj" ]; then
