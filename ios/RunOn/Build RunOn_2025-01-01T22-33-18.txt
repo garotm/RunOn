@@ -1,0 +1,60 @@
+
+Showing All Issues
+
+Prepare build
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:1:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:2:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:3:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:4:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:5:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:6:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:7:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:8:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:9:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:10:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:11:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:12:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:13:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:14:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:15:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:16:1: error: unexpected character ‘<’
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:17:1: error: unexpected character ‘<’
+
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:1:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:2:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:3:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:4:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:5:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:6:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:7:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:8:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:9:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:10:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:11:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:12:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:13:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:14:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:15:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:16:1: unexpected character ‘<’
+
+/Users/garotconklin/garotm/fleXRPL/RunOn/ios/RunOn/RunOn/Info.plist:17:1: unexpected character ‘<’
+
+
+
+Build failed    1/1/25, 10:33 PM    0.8 seconds

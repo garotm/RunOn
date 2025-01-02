@@ -1,35 +1,84 @@
-//
-//  RunOnTests.swift
-//  RunOnTests
-//
-//  Created by Garot Conklin on 12/31/24.
-//
-
 import XCTest
+@testable import RunOn
 
-final class RunOnTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+// MARK: - Mocks
+class MockAPIClient: APIClient {
+    var mockResult: Any?
+    var mockError: Error?
+    var capturedEndpoint: String?
+    var capturedMethod: HTTPMethod?
+    var capturedParameters: Parameters?
+    
+    override func request<T>(_ endpoint: String,
+                           method: HTTPMethod = .get,
+                           parameters: Parameters? = nil,
+                           encoding: ParameterEncoding = URLEncoding.default) async throws -> T {
+        capturedEndpoint = endpoint
+        capturedMethod = method
+        capturedParameters = parameters
+        
+        if let error = mockError {
+            throw error
+        }
+        
+        if let result = mockResult as? T {
+            return result
+        }
+        
+        throw APIError.decodingError
     }
+}
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+class MockEventService: EventServiceProtocol {
+    var mockEvents: [Event] = []
+    var mockError: Error?
+    var registerCalled = false
+    var unregisterCalled = false
+    var searchCalled = false
+    var fetchUserEventsCalled = false
+    
+    func searchEvents(query: String) async throws -> [Event] {
+        searchCalled = true
+        if let error = mockError {
+            throw error
+        }
+        return mockEvents
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func fetchUserEvents() async throws -> [Event] {
+        fetchUserEventsCalled = true
+        if let error = mockError {
+            throw error
+        }
+        return mockEvents
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    
+    func registerForEvent(eventId: String) async throws {
+        registerCalled = true
+        if let error = mockError {
+            throw error
         }
     }
-
+    
+    func unregisterFromEvent(eventId: String) async throws {
+        unregisterCalled = true
+        if let error = mockError {
+            throw error
+        }
+    }
 }
+
+// MARK: - Helper Functions
+extension XCTestCase {
+    func createMockEvent(id: String = "1") -> Event {
+        return Event(
+            id: id,
+            name: "Test Event",
+            date: Date(),
+            location: "Test Location",
+            description: "Test Description",
+            distance: 5.0,
+            registrationDeadline: Date().addingTimeInterval(86400)
+        )
+    }
+} 
