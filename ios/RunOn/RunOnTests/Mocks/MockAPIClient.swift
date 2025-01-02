@@ -2,7 +2,7 @@ import Foundation
 import Alamofire
 @testable import RunOn
 
-class MockAPIClient: APIClientProtocol {
+class MockAPIClient: APIClient {
     var mockResult: Any?
     var mockError: Error?
     
@@ -10,9 +10,14 @@ class MockAPIClient: APIClientProtocol {
     var capturedMethod: HTTPMethod?
     var capturedParameters: Parameters?
     
-    init() {} // Add explicit initializer
+    init() {
+        super.init(baseURL: "https://mock.api.runon.app/v1")
+    }
     
-    func request<T>(_ endpoint: String, method: HTTPMethod = .get, parameters: Parameters? = nil) async throws -> T where T : Decodable {
+    override func request<T>(_ endpoint: String,
+                           method: HTTPMethod = .get,
+                           parameters: Parameters? = nil,
+                           encoding: ParameterEncoding = URLEncoding.default) async throws -> T where T : Decodable {
         capturedEndpoint = endpoint
         capturedMethod = method
         capturedParameters = parameters
