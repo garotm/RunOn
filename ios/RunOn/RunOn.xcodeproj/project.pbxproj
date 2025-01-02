@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		09BE04308883F1E95CABE366 /* EventServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A7F809D8618676B79BE1C /* EventServiceTests.swift */; };
 		32CF993AFF5B43EABDDF2F4F /* RunOnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F1C3F3838A866EE95D7811 /* RunOnTests.swift */; };
+		3FC491EB6826528ED79E1758 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7B5CC507A0ADFD1852AFD8A6 /* Alamofire */; };
 		545FDE1DF417D3E66D73E416 /* EventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB93E4AC1216C085DC912C3 /* EventRow.swift */; };
 		63CAFC98D7BC144D01E0A265 /* RunOnUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CFDC3E8E49E684A220A066 /* RunOnUITestsLaunchTests.swift */; };
 		653829E902870441715DD527 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E8DE5A65122D0AD9225E9F /* SearchViewModel.swift */; };
@@ -22,7 +23,7 @@
 		C09DBE482E39BA7CA5ACD84A /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40D77802026D5DDA5CA94A4 /* AuthenticationViewModel.swift */; };
 		D22CEECB7744FDAC59003FF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64E38C75F702AA301B6814BC /* Assets.xcassets */; };
 		DA42F4095D6CD2F10C31B0A5 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F092304CF5D195F5E7EA10A9 /* SearchViewModelTests.swift */; };
-		DABCDA2C32DEE9C28B7BEC35 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7B5CC507A0ADFD1852AFD8A6 /* Alamofire */; };
+		DABCDA2C32DEE9C28B7BEC35 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CAB014B2E963FF9DE027B9AE /* GoogleSignInSwift */; };
 		E08EAE444910F1FEB14C1500 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96540A2D35BCEEACFBF78B6C /* SearchView.swift */; };
 		E181208C108A337C0666B1CA /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB07F47BF5C96D408D047E3 /* EventsView.swift */; };
 		ED9EE8E4DC7BEAB70743DEE1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F415AF819B2A55460083927 /* Event.swift */; };
@@ -82,7 +83,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F13E815CD91C0D529D4FF050 /* GoogleSignIn in Frameworks */,
-				DABCDA2C32DEE9C28B7BEC35 /* Alamofire in Frameworks */,
+				DABCDA2C32DEE9C28B7BEC35 /* GoogleSignInSwift in Frameworks */,
+				3FC491EB6826528ED79E1758 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +276,7 @@
 			name = RunOn;
 			packageProductDependencies = (
 				1624FD27C27A12BABF30C96A /* GoogleSignIn */,
+				CAB014B2E963FF9DE027B9AE /* GoogleSignInSwift */,
 				7B5CC507A0ADFD1852AFD8A6 /* Alamofire */,
 			);
 			productName = RunOn;
@@ -698,6 +701,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 79137104C30B2CCA59089B5D /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		CAB014B2E963FF9DE027B9AE /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2F11B1C2195DB2E6CCF672C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

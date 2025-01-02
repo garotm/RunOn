@@ -20,6 +20,9 @@ targets:
       - RunOn
     dependencies:
       - package: GoogleSignIn
+        product: GoogleSignIn
+      - package: GoogleSignIn
+        product: GoogleSignInSwift
       - package: Alamofire
     settings:
       base:
