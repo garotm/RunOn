@@ -11,6 +11,9 @@ settings:
     SWIFT_OBJC_INTERFACE_HEADER_NAME: "$(PRODUCT_MODULE_NAME)-Swift.h"
     CLANG_ENABLE_MODULES: YES
     DEFINES_MODULE: YES
+    ENABLE_BITCODE: NO
+    ENABLE_TESTABILITY: YES
+    OTHER_LDFLAGS: ["-ObjC"]
 
 packages:
   AppAuth:
@@ -54,13 +57,21 @@ targets:
         CODE_SIGN_IDENTITY: ""
         PROVISIONING_PROFILE_SPECIFIER: ""
         RUNON_CLIENT_ID: ${RUNON_CLIENT_ID}
-        OTHER_LDFLAGS: ["-ObjC"]
+        OTHER_LDFLAGS: [
+          "-ObjC",
+          "-framework", "SafariServices",
+          "-framework", "LocalAuthentication",
+          "-framework", "AuthenticationServices",
+          "-framework", "Security",
+          "-framework", "SystemConfiguration"
+        ]
         ENABLE_BITCODE: NO
         ENABLE_TESTABILITY: YES
         SWIFT_INSTALL_OBJC_HEADER: YES
         DEFINES_MODULE: YES
         SWIFT_OBJC_INTERFACE_HEADER_NAME: "$(PRODUCT_MODULE_NAME)-Swift.h"
         CLANG_ENABLE_MODULES: YES
+        FRAMEWORK_SEARCH_PATHS: ["$(inherited)", "$(SRCROOT)/DerivedData/SourcePackages/checkouts/**"]
     info:
       path: RunOn/Info.plist
       properties:
@@ -95,10 +106,18 @@ targets:
         DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Manual
         CODE_SIGN_IDENTITY: ""
-        OTHER_LDFLAGS: ["-ObjC"]
+        OTHER_LDFLAGS: [
+          "-ObjC",
+          "-framework", "SafariServices",
+          "-framework", "LocalAuthentication",
+          "-framework", "AuthenticationServices",
+          "-framework", "Security",
+          "-framework", "SystemConfiguration"
+        ]
         SWIFT_INSTALL_OBJC_HEADER: YES
         DEFINES_MODULE: YES
         CLANG_ENABLE_MODULES: YES
+        FRAMEWORK_SEARCH_PATHS: ["$(inherited)", "$(SRCROOT)/DerivedData/SourcePackages/checkouts/**"]
 
   RunOnUITests:
     type: bundle.ui-testing
@@ -126,7 +145,15 @@ targets:
         DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Manual
         CODE_SIGN_IDENTITY: ""
-        OTHER_LDFLAGS: ["-ObjC"]
+        OTHER_LDFLAGS: [
+          "-ObjC",
+          "-framework", "SafariServices",
+          "-framework", "LocalAuthentication",
+          "-framework", "AuthenticationServices",
+          "-framework", "Security",
+          "-framework", "SystemConfiguration"
+        ]
         SWIFT_INSTALL_OBJC_HEADER: YES
         DEFINES_MODULE: YES
-        CLANG_ENABLE_MODULES: YES 
+        CLANG_ENABLE_MODULES: YES
+        FRAMEWORK_SEARCH_PATHS: ["$(inherited)", "$(SRCROOT)/DerivedData/SourcePackages/checkouts/**"] 
