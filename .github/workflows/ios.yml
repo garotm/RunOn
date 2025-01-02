@@ -20,6 +20,7 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
       RUNON_CLIENT_ID: ${{ secrets.RUNON_CLIENT_ID }}
+      DERIVED_DATA_PATH: "DerivedData"
 
     steps:
     - uses: actions/checkout@v4
@@ -47,36 +48,36 @@ jobs:
         chmod +x regenerate_project.sh
         ./regenerate_project.sh
     
-    - name: Build
+    - name: Clean Build Folder
       working-directory: ios/RunOn
       run: |
-        echo "📍 Working directory: $(pwd)"
-        ls -la
-        xcodebuild -list -project RunOn.xcodeproj || (echo "⚠️ Project file issue detected" && exit 1)
-        xcodebuild clean build \
-          -project RunOn.xcodeproj \
-          -scheme RunOn \
-          -destination "platform=iOS Simulator,name=iPhone 15 Pro,OS=17.2" \
-          CODE_SIGN_IDENTITY="" \
-          CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGNING_ALLOWED=NO \
-          ONLY_ACTIVE_ARCH=YES
+        rm -rf $DERIVED_DATA_PATH
+        mkdir -p $DERIVED_DATA_PATH
     
-    - name: Run Tests
+    - name: Resolve Package Dependencies
       working-directory: ios/RunOn
       run: |
-        xcodebuild test \
-          -project RunOn.xcodeproj \
+        xcodebuild -resolvePackageDependencies \
+          -scheme RunOn \
+          -clonedSourcePackagesDirPath $DERIVED_DATA_PATH/SourcePackages
+    
+    - name: Build and Test
+      working-directory: ios/RunOn
+      run: |
+        xcodebuild clean test \
           -scheme RunOn \
           -destination "platform=iOS Simulator,name=iPhone 15 Pro,OS=17.2" \
+          -derivedDataPath $DERIVED_DATA_PATH \
+          -enableCodeCoverage YES \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGNING_ALLOWED=NO \
-          -resultBundlePath TestResults.xcresult
+          ONLY_ACTIVE_ARCH=YES \
+          | xcpretty && exit ${PIPESTATUS[0]}
     
     - name: Upload Test Results
       uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
         name: test-results
-        path: ios/RunOn/TestResults.xcresult 
+        path: ios/RunOn/DerivedData/Logs/Test/*.xcresult 

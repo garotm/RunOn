@@ -8,28 +8,43 @@
 
 /* Begin PBXBuildFile section */
 		09BE04308883F1E95CABE366 /* EventServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A7F809D8618676B79BE1C /* EventServiceTests.swift */; };
+		1C940E04F45D775E7520313C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4903036D853411310983DA4A /* Alamofire */; };
+		2F176181B0D49BAE1FF99505 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 53106EAB9C23A19597136141 /* GoogleSignInSwift */; };
 		32CF993AFF5B43EABDDF2F4F /* RunOnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F1C3F3838A866EE95D7811 /* RunOnTests.swift */; };
-		3FC491EB6826528ED79E1758 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7B5CC507A0ADFD1852AFD8A6 /* Alamofire */; };
+		3DE69AE0909660B81E8C96A2 /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEE2494BD0E744E3F197E67 /* AppAuthCore */; };
+		3FC491EB6826528ED79E1758 /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 06BDCCFEA4A1C772A2CA2C00 /* GTMAppAuth */; };
 		545FDE1DF417D3E66D73E416 /* EventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB93E4AC1216C085DC912C3 /* EventRow.swift */; };
+		56988B8F91E975061D7D0E68 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = B33FC3A4AE62E45BF44EAEED /* GoogleSignIn */; };
 		63CAFC98D7BC144D01E0A265 /* RunOnUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CFDC3E8E49E684A220A066 /* RunOnUITestsLaunchTests.swift */; };
 		653829E902870441715DD527 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E8DE5A65122D0AD9225E9F /* SearchViewModel.swift */; };
 		69AB78546853EB6B251D244B /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0C2283332F0DED6CB67EC /* APIClient.swift */; };
+		69CEB679BA5C6B3E982A0EC6 /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0F179C594E028932C24EFB95 /* AppAuthCore */; };
+		7A41641A198F057741F7B9AC /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CAB014B2E963FF9DE027B9AE /* GoogleSignInSwift */; };
+		8568E815E9295A51A7D6E94B /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A10AED99B35167D81CB721E2 /* AppAuth */; };
 		8FFC1478AEF2246A568D6393 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B27C7D34648396AFDBC72 /* EventService.swift */; };
 		90749DD9A76DA6598BF12053 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D65491B9A6E48CC5E6F2593F /* Preview Assets.xcassets */; };
+		910777D70A98BCAA59F16F90 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FA51326938DB56A61679B0DC /* Alamofire */; };
 		957E2CF136FCA93D04F5C9F1 /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C63E6DD04DC44AE82A1A051 /* EventsViewModel.swift */; };
 		9670635524A3D895894BA499 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49802392CD764078E45D5C /* AuthenticationView.swift */; };
 		99B3C158C7F97675BD3E5399 /* RunOnUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF18EAFDA8AF88C06E11326 /* RunOnUITests.swift */; };
 		9E6FDF7D5547AF5837E77E86 /* RunOnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2474DA1946515FE948E8A4 /* RunOnApp.swift */; };
+		A18F939047E9F91B76F10EA6 /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B6D4949782BC54365B57D09B /* GTMAppAuth */; };
+		A4E96049706A4FF870C7E3F1 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B1DAEA604E20CB79B580AA94 /* AppAuth */; };
+		A85A34AA2F892848A48A7AF9 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1624FD27C27A12BABF30C96A /* GoogleSignIn */; };
+		BE955A4CB86B9E7FEFCF2C24 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CBA90C49FC086E06D488537A /* GoogleSignInSwift */; };
+		BF808A739848F684C18A4112 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = BF26BB79BC80CFB683ACE1C7 /* GoogleSignIn */; };
 		C09DBE482E39BA7CA5ACD84A /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40D77802026D5DDA5CA94A4 /* AuthenticationViewModel.swift */; };
+		D19121CB2CD74392A0291872 /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6E3D2669DD8037410BD92691 /* GTMAppAuth */; };
 		D22CEECB7744FDAC59003FF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64E38C75F702AA301B6814BC /* Assets.xcassets */; };
 		DA42F4095D6CD2F10C31B0A5 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F092304CF5D195F5E7EA10A9 /* SearchViewModelTests.swift */; };
-		DABCDA2C32DEE9C28B7BEC35 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CAB014B2E963FF9DE027B9AE /* GoogleSignInSwift */; };
+		DABCDA2C32DEE9C28B7BEC35 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C3F214172EB8E70F08D9FB81 /* AppAuth */; };
 		E08EAE444910F1FEB14C1500 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96540A2D35BCEEACFBF78B6C /* SearchView.swift */; };
 		E181208C108A337C0666B1CA /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB07F47BF5C96D408D047E3 /* EventsView.swift */; };
 		ED9EE8E4DC7BEAB70743DEE1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F415AF819B2A55460083927 /* Event.swift */; };
-		F13E815CD91C0D529D4FF050 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1624FD27C27A12BABF30C96A /* GoogleSignIn */; };
+		F13E815CD91C0D529D4FF050 /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 483093EF2D30EBE679EB1849 /* AppAuthCore */; };
 		F1DD5F57036E157A039E0400 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBAEA30273A28B405B38A379 /* GoogleService-Info.plist */; };
 		F491A0F68B0429DE24446D94 /* EventsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718D20BF0F6876D958EA13 /* EventsViewModelTests.swift */; };
+		F6EEA20BC48B1EC78F025110 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7B5CC507A0ADFD1852AFD8A6 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,9 +97,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F13E815CD91C0D529D4FF050 /* GoogleSignIn in Frameworks */,
-				DABCDA2C32DEE9C28B7BEC35 /* GoogleSignInSwift in Frameworks */,
-				3FC491EB6826528ED79E1758 /* Alamofire in Frameworks */,
+				F13E815CD91C0D529D4FF050 /* AppAuthCore in Frameworks */,
+				DABCDA2C32DEE9C28B7BEC35 /* AppAuth in Frameworks */,
+				3FC491EB6826528ED79E1758 /* GTMAppAuth in Frameworks */,
+				A85A34AA2F892848A48A7AF9 /* GoogleSignIn in Frameworks */,
+				7A41641A198F057741F7B9AC /* GoogleSignInSwift in Frameworks */,
+				F6EEA20BC48B1EC78F025110 /* Alamofire in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3C161D644F3DE15AF537C55 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DE69AE0909660B81E8C96A2 /* AppAuthCore in Frameworks */,
+				8568E815E9295A51A7D6E94B /* AppAuth in Frameworks */,
+				D19121CB2CD74392A0291872 /* GTMAppAuth in Frameworks */,
+				BF808A739848F684C18A4112 /* GoogleSignIn in Frameworks */,
+				2F176181B0D49BAE1FF99505 /* GoogleSignInSwift in Frameworks */,
+				1C940E04F45D775E7520313C /* Alamofire in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5BD52D4D461FBA91CD7D8F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69CEB679BA5C6B3E982A0EC6 /* AppAuthCore in Frameworks */,
+				A4E96049706A4FF870C7E3F1 /* AppAuth in Frameworks */,
+				A18F939047E9F91B76F10EA6 /* GTMAppAuth in Frameworks */,
+				56988B8F91E975061D7D0E68 /* GoogleSignIn in Frameworks */,
+				BE955A4CB86B9E7FEFCF2C24 /* GoogleSignInSwift in Frameworks */,
+				910777D70A98BCAA59F16F90 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +294,7 @@
 			buildConfigurationList = F60D47482B101D0419DD4CD6 /* Build configuration list for PBXNativeTarget "RunOnTests" */;
 			buildPhases = (
 				D0E5F535DD19CAA0FF01C396 /* Sources */,
+				E5BD52D4D461FBA91CD7D8F4 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -257,6 +302,14 @@
 				4AA3D8D84C6E864DF35229BB /* PBXTargetDependency */,
 			);
 			name = RunOnTests;
+			packageProductDependencies = (
+				0F179C594E028932C24EFB95 /* AppAuthCore */,
+				B1DAEA604E20CB79B580AA94 /* AppAuth */,
+				B6D4949782BC54365B57D09B /* GTMAppAuth */,
+				B33FC3A4AE62E45BF44EAEED /* GoogleSignIn */,
+				CBA90C49FC086E06D488537A /* GoogleSignInSwift */,
+				FA51326938DB56A61679B0DC /* Alamofire */,
+			);
 			productName = RunOnTests;
 			productReference = BA5167274995F5E0392338D6 /* RunOnTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -275,6 +328,9 @@
 			);
 			name = RunOn;
 			packageProductDependencies = (
+				483093EF2D30EBE679EB1849 /* AppAuthCore */,
+				C3F214172EB8E70F08D9FB81 /* AppAuth */,
+				06BDCCFEA4A1C772A2CA2C00 /* GTMAppAuth */,
 				1624FD27C27A12BABF30C96A /* GoogleSignIn */,
 				CAB014B2E963FF9DE027B9AE /* GoogleSignInSwift */,
 				7B5CC507A0ADFD1852AFD8A6 /* Alamofire */,
@@ -288,6 +344,7 @@
 			buildConfigurationList = 529813CAD1C9FCDC6D98F9BA /* Build configuration list for PBXNativeTarget "RunOnUITests" */;
 			buildPhases = (
 				4AB1E671E586FDE91384C251 /* Sources */,
+				A3C161D644F3DE15AF537C55 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -295,6 +352,14 @@
 				C33A66157F9FE8F0CE495C17 /* PBXTargetDependency */,
 			);
 			name = RunOnUITests;
+			packageProductDependencies = (
+				4CEE2494BD0E744E3F197E67 /* AppAuthCore */,
+				A10AED99B35167D81CB721E2 /* AppAuth */,
+				6E3D2669DD8037410BD92691 /* GTMAppAuth */,
+				BF26BB79BC80CFB683ACE1C7 /* GoogleSignIn */,
+				53106EAB9C23A19597136141 /* GoogleSignInSwift */,
+				4903036D853411310983DA4A /* Alamofire */,
+			);
 			productName = RunOnUITests;
 			productReference = 5CC08E5AC8BC7E69C4F3B647 /* RunOnUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -306,13 +371,19 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
+					5449A31249442EB259D40B65 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
 					70AE5F305421692B19B1C988 = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Manual;
 					};
 					DD64858F999EF65E28339C87 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
 						TestTargetID = 70AE5F305421692B19B1C988;
 					};
 				};
@@ -328,6 +399,8 @@
 			mainGroup = 52ED0951CF29C89C80EC8B6F;
 			packageReferences = (
 				79137104C30B2CCA59089B5D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				A1FE74AD5AF4C2297B51D36C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
+				38B04AAAEE9E53E078905A9D /* XCRemoteSwiftPackageReference "GTMAppAuth" */,
 				F2F11B1C2195DB2E6CCF672C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			projectDirPath = "";
@@ -412,18 +485,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = RunOn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.flexrpl.RunOn;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				RUNON_CLIENT_ID = "582143338826-calcgiscsuuaf25u84lvm9d5g07kg1e6.apps.googleusercontent.com";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_MODULE_NAME)-Swift.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -432,13 +514,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.flexrpl.RunOnTests;
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RunOn.app/RunOn";
 			};
@@ -479,6 +571,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -495,6 +588,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_MODULE_NAME)-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 			};
@@ -535,6 +630,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -558,6 +654,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_MODULE_NAME)-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -567,13 +665,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.flexrpl.RunOnUITests;
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = RunOn;
 			};
@@ -583,13 +691,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.flexrpl.RunOnTests;
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RunOn.app/RunOn";
 			};
@@ -599,13 +717,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.flexrpl.RunOnUITests;
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = RunOn;
 			};
@@ -615,18 +743,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = RunOn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.flexrpl.RunOn;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				RUNON_CLIENT_ID = "582143338826-calcgiscsuuaf25u84lvm9d5g07kg1e6.apps.googleusercontent.com";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_MODULE_NAME)-Swift.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -673,39 +810,130 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		38B04AAAEE9E53E078905A9D /* XCRemoteSwiftPackageReference "GTMAppAuth" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GTMAppAuth";
+			requirement = {
+				kind = exactVersion;
+				version = 4.1.1;
+			};
+		};
 		79137104C30B2CCA59089B5D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.10.2;
+				kind = exactVersion;
+				version = 5.10.2;
+			};
+		};
+		A1FE74AD5AF4C2297B51D36C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/openid/AppAuth-iOS";
+			requirement = {
+				kind = exactVersion;
+				version = 1.7.3;
 			};
 		};
 		F2F11B1C2195DB2E6CCF672C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
+				kind = exactVersion;
+				version = 8.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		06BDCCFEA4A1C772A2CA2C00 /* GTMAppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38B04AAAEE9E53E078905A9D /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
+			productName = GTMAppAuth;
+		};
+		0F179C594E028932C24EFB95 /* AppAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1FE74AD5AF4C2297B51D36C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthCore;
+		};
 		1624FD27C27A12BABF30C96A /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F2F11B1C2195DB2E6CCF672C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
+		};
+		483093EF2D30EBE679EB1849 /* AppAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1FE74AD5AF4C2297B51D36C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthCore;
+		};
+		4903036D853411310983DA4A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79137104C30B2CCA59089B5D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		4CEE2494BD0E744E3F197E67 /* AppAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1FE74AD5AF4C2297B51D36C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthCore;
+		};
+		53106EAB9C23A19597136141 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2F11B1C2195DB2E6CCF672C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		6E3D2669DD8037410BD92691 /* GTMAppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38B04AAAEE9E53E078905A9D /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
+			productName = GTMAppAuth;
 		};
 		7B5CC507A0ADFD1852AFD8A6 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 79137104C30B2CCA59089B5D /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
+		A10AED99B35167D81CB721E2 /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1FE74AD5AF4C2297B51D36C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		B1DAEA604E20CB79B580AA94 /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1FE74AD5AF4C2297B51D36C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		B33FC3A4AE62E45BF44EAEED /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2F11B1C2195DB2E6CCF672C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		B6D4949782BC54365B57D09B /* GTMAppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38B04AAAEE9E53E078905A9D /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
+			productName = GTMAppAuth;
+		};
+		BF26BB79BC80CFB683ACE1C7 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2F11B1C2195DB2E6CCF672C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		C3F214172EB8E70F08D9FB81 /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1FE74AD5AF4C2297B51D36C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
 		CAB014B2E963FF9DE027B9AE /* GoogleSignInSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F2F11B1C2195DB2E6CCF672C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		CBA90C49FC086E06D488537A /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2F11B1C2195DB2E6CCF672C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		FA51326938DB56A61679B0DC /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79137104C30B2CCA59089B5D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

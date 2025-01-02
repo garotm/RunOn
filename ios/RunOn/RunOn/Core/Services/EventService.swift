@@ -10,7 +10,7 @@ protocol EventServiceProtocol {
 class EventService: EventServiceProtocol {
     private let apiClient: APIClient
     
-    init(apiClient: APIClient = .shared) {
+    init(apiClient: APIClient = APIClient()) {
         self.apiClient = apiClient
     }
     

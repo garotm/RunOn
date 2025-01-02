@@ -6,16 +6,40 @@ set -e
 echo "🧪 Running iOS tests..."
 
 # Navigate to iOS project directory
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../RunOn"
 
-# Run tests using xcodebuild
-xcodebuild test \
+# Clean build directory and derived data
+echo "🧹 Cleaning build directory..."
+rm -rf ~/Library/Developer/Xcode/DerivedData/RunOn-*
+rm -rf ./DerivedData
+
+echo "📦 Resolving Swift package dependencies..."
+xcodebuild \
+    -resolvePackageDependencies \
     -scheme RunOn \
-    -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' \
-    -enableCodeCoverage YES \
-    | xcpretty
+    -clonedSourcePackagesDirPath ./DerivedData/SourcePackages
 
-# Generate and open code coverage report
-xcrun xccov view --report --files-for-target RunOn DerivedData/Logs/Test/*.xcresult
+echo "🏗 Building and testing project..."
+xcodebuild \
+    -scheme RunOn \
+    -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2' \
+    -derivedDataPath ./DerivedData \
+    -configuration Debug \
+    clean build test \
+    ONLY_ACTIVE_ARCH=YES \
+    CODE_SIGN_IDENTITY="" \
+    CODE_SIGNING_REQUIRED=NO \
+    BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+    ENABLE_TESTABILITY=YES \
+    -verbose \
+    | tee build.log
 
-echo "✅ Tests completed!" 
+# Check if the build succeeded
+BUILD_RESULT=${PIPESTATUS[0]}
+if [ $BUILD_RESULT -eq 0 ]; then
+    echo "✅ Tests completed successfully!"
+    exit 0
+else
+    echo "❌ Tests failed with exit code $BUILD_RESULT"
+    exit $BUILD_RESULT
+fi 

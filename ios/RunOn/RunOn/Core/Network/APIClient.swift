@@ -25,8 +25,11 @@ enum APIError: Error {
 }
 
 class APIClient {
-    static let shared = APIClient()
-    private let baseURL = "https://api.runon.app/v1" // Replace with actual API URL
+    let baseURL: String
+    
+    init(baseURL: String = "https://api.runon.app/v1") {
+        self.baseURL = baseURL
+    }
     
     private var headers: HTTPHeaders {
         var headers: HTTPHeaders = [
@@ -40,8 +43,6 @@ class APIClient {
         
         return headers
     }
-    
-    private init() {}
     
     func request<T: Decodable>(_ endpoint: String,
                               method: HTTPMethod = .get,

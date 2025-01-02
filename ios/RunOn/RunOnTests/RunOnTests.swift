@@ -10,6 +10,10 @@ class MockAPIClient: APIClient {
     var capturedMethod: HTTPMethod?
     var capturedParameters: Parameters?
     
+    init() {
+        super.init(baseURL: "https://mock.api.runon.app/v1")
+    }
+    
     override func request<T>(_ endpoint: String,
                            method: HTTPMethod = .get,
                            parameters: Parameters? = nil,
@@ -27,45 +31,6 @@ class MockAPIClient: APIClient {
         }
         
         throw APIError.decodingError
-    }
-}
-
-class MockEventService: EventServiceProtocol {
-    var mockEvents: [Event] = []
-    var mockError: Error?
-    var registerCalled = false
-    var unregisterCalled = false
-    var searchCalled = false
-    var fetchUserEventsCalled = false
-    
-    func searchEvents(query: String) async throws -> [Event] {
-        searchCalled = true
-        if let error = mockError {
-            throw error
-        }
-        return mockEvents
-    }
-    
-    func fetchUserEvents() async throws -> [Event] {
-        fetchUserEventsCalled = true
-        if let error = mockError {
-            throw error
-        }
-        return mockEvents
-    }
-    
-    func registerForEvent(eventId: String) async throws {
-        registerCalled = true
-        if let error = mockError {
-            throw error
-        }
-    }
-    
-    func unregisterFromEvent(eventId: String) async throws {
-        unregisterCalled = true
-        if let error = mockError {
-            throw error
-        }
     }
 }
 
