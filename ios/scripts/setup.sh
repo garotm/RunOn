@@ -15,23 +15,28 @@ fi
 XCODE_VERSION=$(xcodebuild -version | head -n1 | awk '{print $2}')
 echo "✓ Using Xcode version: $XCODE_VERSION"
 
-# Install/Update CocoaPods if needed
-if ! command -v pod &> /dev/null; then
-    echo "📦 Installing CocoaPods..."
-    sudo gem install cocoapods
-else
-    echo "📦 Updating CocoaPods..."
-    sudo gem update cocoapods
+# Navigate to the correct iOS project directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")/RunOn"
+cd "$PROJECT_DIR"
+
+echo "📍 Working directory: $(pwd)"
+
+# Verify Xcode project exists
+if [ ! -d "RunOn.xcodeproj" ]; then
+    echo "❌ RunOn.xcodeproj not found in $(pwd)"
+    echo "Available files:"
+    ls -la
+    exit 1
 fi
 
-# Navigate to iOS project directory
-cd "$(dirname "$0")/.."
+# Resolve Swift Package Manager dependencies
+echo "📦 Resolving Swift Package Manager dependencies..."
+xcodebuild -resolvePackageDependencies -project RunOn.xcodeproj
 
-# Install dependencies if Podfile exists
-if [ -f "Podfile" ]; then
-    echo "📱 Installing iOS dependencies..."
-    pod install
-    echo "✅ Dependencies installed"
-fi
+# Clean build folder
+echo "🧹 Cleaning build folder..."
+rm -rf build
+rm -rf ~/Library/Developer/Xcode/DerivedData/*RunOn*
 
 echo "✨ Setup complete!" 
