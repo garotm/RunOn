@@ -19,7 +19,6 @@ jobs:
 
     env:
       DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
-      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
       RUNON_CLIENT_ID: ${{ secrets.RUNON_CLIENT_ID }}
 
     steps:
@@ -30,6 +29,10 @@ jobs:
       with:
         xcode-version: '15.2'
     
+    - name: Install xcodegen
+      run: |
+        brew install xcodegen
+    
     - name: Show Build Environment
       run: |
         xcodebuild -version
@@ -38,11 +41,11 @@ jobs:
         pwd
         ls -R ios/
     
-    - name: Install Dependencies
+    - name: Regenerate Project
       run: |
         cd ios/scripts
-        chmod +x setup.sh
-        ./setup.sh
+        chmod +x regenerate_project.sh
+        ./regenerate_project.sh
     
     - name: Build
       working-directory: ios/RunOn

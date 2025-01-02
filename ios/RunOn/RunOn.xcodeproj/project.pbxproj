@@ -58,51 +58,6 @@
 		56383EC32D249FA00080C219 /* EventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventRow.swift; path = RunOn/Core/Views/EventRow.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		56383E642D24954B0080C219 /* RunOn */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RunOn;
-			sourceTree = "<group>";
-		};
-		56383E762D24954C0080C219 /* RunOnTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RunOnTests;
-			sourceTree = "<group>";
-		};
-		56383E802D24954C0080C219 /* RunOnUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RunOnUITests;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		56383E5F2D24954B0080C219 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				56383EA72D2497D90080C219 /* Alamofire in Frameworks */,
-				56383EA22D2497B90080C219 /* GoogleSignIn in Frameworks */,
-				56383EA42D2497B90080C219 /* GoogleSignInSwift in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		56383E702D24954C0080C219 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		56383E7A2D24954C0080C219 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
 		56383E592D24954A0080C219 = {
 			isa = PBXGroup;
@@ -126,13 +81,17 @@
 		};
 		56383E642D24954B0080C219 /* RunOn */ = {
 			isa = PBXGroup;
-			children = (
-				56383E902D2495A00080C219 /* Info.plist */,
-				56383ED02D24A0200080C219 /* App */,
-				56383ED12D24A0300080C219 /* Features */,
-				56383ED22D24A0400080C219 /* Core */,
-			);
 			path = RunOn;
+			sourceTree = "<group>";
+		};
+		56383E762D24954C0080C219 /* RunOnTests */ = {
+			isa = PBXGroup;
+			path = RunOnTests;
+			sourceTree = "<group>";
+		};
+		56383E802D24954C0080C219 /* RunOnUITests */ = {
+			isa = PBXGroup;
+			path = RunOnUITests;
 			sourceTree = "<group>";
 		};
 		56383ED02D24A0200080C219 /* App */ = {
