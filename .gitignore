@@ -303,3 +303,6 @@ Temporary Items
 
 # Config files with sensitive data
 Config.xcconfig
+
+# Xcode backup files
+*.pbxproj.bak
