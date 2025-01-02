@@ -45,7 +45,7 @@ jobs:
         ./setup.sh
     
     - name: Build
-      working-directory: ios/RunOn/RunOn
+      working-directory: ios/RunOn
       run: |
         echo "📍 Working directory: $(pwd)"
         ls -la
@@ -60,7 +60,7 @@ jobs:
           ONLY_ACTIVE_ARCH=YES
     
     - name: Run Tests
-      working-directory: ios/RunOn/RunOn
+      working-directory: ios/RunOn
       run: |
         xcodebuild test \
           -project RunOn.xcodeproj \
@@ -76,4 +76,4 @@ jobs:
       if: success() || failure()
       with:
         name: test-results
-        path: ios/RunOn/RunOn/TestResults.xcresult 
+        path: ios/RunOn/TestResults.xcresult 
