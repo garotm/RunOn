@@ -6,6 +6,8 @@ from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from config.environment import Environment
+from functions.event_discovery.search import search_running_events
+from models.event import Event
 
 app = FastAPI(title="RunOn API")
 
@@ -39,19 +41,15 @@ async def verify_token(authorization: Optional[str] = Header(None)):
     raise HTTPException(status_code=401, detail="Invalid credentials")
 
 
-def get_mock_events() -> List[str]:
-    """Get mock events for testing."""
-    return ["event1", "event2"]
-
-
 @app.post("/events/search")
 async def search_and_create_events(
     query: str, authorized: bool = Depends(verify_token)
-) -> List[str]:
+) -> List[Event]:
     """Search for events and create them in calendar."""
     try:
-        # For now, return a mock response
-        return get_mock_events()
+        # Use the real search implementation
+        events = search_running_events(query)
+        return events
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

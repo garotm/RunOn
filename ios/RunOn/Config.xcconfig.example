@@ -1,0 +1,11 @@
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// Google Client ID from .env
+RUNON_CLIENT_ID = your_client_id_here.apps.googleusercontent.com
+
+// URL Scheme for Google Sign In (needs to be reversed client ID)
+GOOGLE_CLIENT_ID = com.googleusercontent.apps.your_client_id_here
+
+// Bundle ID
+PRODUCT_BUNDLE_IDENTIFIER = com.flexrpl.RunOn 

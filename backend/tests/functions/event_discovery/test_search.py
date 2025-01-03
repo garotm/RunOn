@@ -1,37 +1,42 @@
-"""Tests for event discovery search."""
+"""Tests for event discovery functionality."""
 
+from datetime import datetime
 from unittest.mock import MagicMock, patch
 
 import pytest
+import requests
 
 from functions.event_discovery.search import search_running_events
-from models.event import Event
 
 
 @pytest.fixture
 def mock_environment():
     """Mock environment variables."""
-    with patch("config.environment.Environment.get_required") as mock:
-        mock.side_effect = ["test-api-key", "test-search-engine-id"]
-        yield mock
+    with patch("functions.event_discovery.search.Environment") as mock_env:
+        mock_env.get_required.side_effect = lambda x: {
+            "RUNON_API_KEY": "test-api-key",
+            "RUNON_SEARCH_ENGINE_ID": "test-search-engine-id",
+        }[x]
+        yield mock_env
 
 
 @pytest.fixture
 def mock_requests():
     """Mock requests library."""
-    with patch("requests.get") as mock:
-        mock.return_value = MagicMock(
-            json=lambda: {
-                "items": [
-                    {
-                        "title": "Test Run Event",
-                        "snippet": "A test running event",
-                        "link": "https://example.com/event",
-                    }
-                ]
-            }
-        )
-        yield mock
+    with patch("functions.event_discovery.search.requests") as mock_req:
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "items": [
+                {
+                    "title": "5K Run on March 15, 2024",
+                    "snippet": "Join us for our annual 5K run",
+                    "link": "https://example.com/event1",
+                }
+            ]
+        }
+        mock_req.get.return_value = mock_response
+        yield mock_req.get
 
 
 def test_search_running_events_success(mock_environment, mock_requests):
@@ -40,24 +45,42 @@ def test_search_running_events_success(mock_environment, mock_requests):
     events = search_running_events(location)
 
     assert len(events) == 1
-    assert isinstance(events[0], Event)
-    assert events[0].name == "Test Run Event"
-    assert events[0].location == location
-    assert events[0].description == "A test running event"
-    assert events[0].url == "https://example.com/event"
+    event = events[0]
+    assert event.name == "5K Run on March 15, 2024"
+    assert event.date == datetime(2024, 3, 15)
+    assert event.location == location
+    assert event.url == "https://example.com/event1"
+    assert event.distance == 5.0
 
 
 def test_search_running_events_api_error(mock_environment, mock_requests):
     """Test handling of API errors."""
-    mock_requests.side_effect = Exception("API Error")
+    mock_response = MagicMock()
+    mock_response.status_code = 400
+    mock_response.text = "API Error"
+    mock_requests.return_value = mock_response
 
     events = search_running_events("Boston")
     assert len(events) == 0
 
 
-def test_search_running_events_no_results(mock_environment, mock_requests):
-    """Test handling of no search results."""
-    mock_requests.return_value = MagicMock(json=lambda: {"items": []})
+def test_search_running_events_with_location(mock_environment, mock_requests):
+    """Test search with location parameter."""
+    location = "Boston"
+    events = search_running_events("marathon", location=location)
 
-    events = search_running_events("Remote Location")
-    assert len(events) == 0
+    assert len(events) == 1
+    event = events[0]
+    assert event.location == location
+
+    # Verify location was added to search terms
+    call_args = mock_requests.call_args[1]
+    assert location in call_args["params"]["q"]
+
+
+def test_search_running_events_request_exception(mock_environment):
+    """Test handling of request exceptions."""
+    with patch("functions.event_discovery.search.requests.get") as mock_get:
+        mock_get.side_effect = requests.exceptions.RequestException("Connection error")
+        events = search_running_events("marathon")
+        assert len(events) == 0

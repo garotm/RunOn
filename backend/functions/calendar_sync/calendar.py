@@ -1,12 +1,25 @@
 """Calendar sync functionality."""
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Dict, List, Optional
 
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
-from functions.event_discovery.search import search_running_events
 from models.event import Event
+
+
+def get_calendar_service(credentials: Credentials):
+    """Get Google Calendar service.
+
+    Args:
+        credentials: Google OAuth credentials
+
+    Returns:
+        Calendar service instance
+    """
+    return build("calendar", "v3", credentials=credentials)
 
 
 def add_event_to_calendar(
@@ -22,15 +35,25 @@ def add_event_to_calendar(
     Returns:
         Optional[str]: Event ID if successful, None otherwise
     """
-    service = build(
-        "calendar",
-        "v3",
-        credentials=credentials,
-    )
-
-    calendar_event = event.to_calendar_event()
-
     try:
+        service = get_calendar_service(credentials)
+        calendar_event = event.to_calendar_event()
+
+        # Check if event already exists
+        if event.calendar_event_id:
+            try:
+                existing_event = (
+                    service.events()
+                    .get(calendarId="primary", eventId=event.calendar_event_id)
+                    .execute()
+                )
+                print(f"Event already exists in calendar: {existing_event['id']}")
+                return existing_event["id"]
+            except HttpError as e:
+                if e.resp.status != 404:  # If error is not "Not Found"
+                    raise
+
+        # Create new event
         result = (
             service.events()
             .insert(
@@ -39,31 +62,72 @@ def add_event_to_calendar(
             )
             .execute()
         )
-        return result.get("id")
+
+        event_id = result.get("id")
+        print(f"Created calendar event: {event_id}")
+        return event_id
+
     except Exception as e:
-        print(f"Error adding event to calendar: {e}")
+        print(f"Error adding event to calendar: {str(e)}")
         return None
 
 
-def create_events_from_search(
-    search_query: str,
+def remove_event_from_calendar(
+    event_id: str,
     credentials: Credentials,
-) -> List[str]:
-    """Create calendar events from search results.
+) -> bool:
+    """Remove event from user's Google Calendar.
 
     Args:
-        search_query: Location or search query
+        event_id: Calendar event ID
         credentials: Google OAuth credentials
 
     Returns:
-        List[str]: List of created event IDs
+        bool: True if successful, False otherwise
     """
-    events = search_running_events(search_query)
-    event_ids = []
+    try:
+        service = get_calendar_service(credentials)
+        service.events().delete(calendarId="primary", eventId=event_id).execute()
+        print(f"Removed calendar event: {event_id}")
+        return True
+    except Exception as e:
+        print(f"Error removing event from calendar: {str(e)}")
+        return False
 
-    for event in events:
-        event_id = add_event_to_calendar(event, credentials)
-        if event_id:
-            event_ids.append(event_id)
 
-    return event_ids
+def get_upcoming_running_events(
+    credentials: Credentials, time_min: Optional[datetime] = None, max_results: int = 10
+) -> List[Dict]:
+    """Get upcoming running events from calendar.
+
+    Args:
+        credentials: Google OAuth credentials
+        time_min: Minimum time for events (default: now)
+        max_results: Maximum number of events to return
+
+    Returns:
+        List[Dict]: List of calendar events
+    """
+    try:
+        service = get_calendar_service(credentials)
+
+        if not time_min:
+            time_min = datetime.utcnow()
+
+        events_result = (
+            service.events()
+            .list(
+                calendarId="primary",
+                timeMin=time_min.isoformat() + "Z",
+                maxResults=max_results,
+                singleEvents=True,
+                orderBy="startTime",
+                q="🏃",  # Search for our running event emoji
+            )
+            .execute()
+        )
+
+        return events_result.get("items", [])
+    except Exception as e:
+        print(f"Error getting upcoming running events: {str(e)}")
+        return []
