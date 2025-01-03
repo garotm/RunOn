@@ -27,7 +27,7 @@ enum APIError: Error {
 class APIClient {
     let baseURL: String
     
-    init(baseURL: String = "https://api.runon.app/v1") {
+    init(baseURL: String = "http://127.0.0.1:8000") {
         self.baseURL = baseURL
     }
     
@@ -37,15 +37,16 @@ class APIClient {
             "Accept": "application/json"
         ]
         
-        if let token = UserDefaults.standard.string(forKey: "auth_token") {
-            headers["Authorization"] = "Bearer \(token)"
+        // Use the Google client ID as the Bearer token for local development
+        if let clientID = Bundle.main.object(forInfoDictionaryKey: "GIDClientID") as? String {
+            headers["Authorization"] = "Bearer \(clientID)"
         }
         
         return headers
     }
     
     func request<T: Decodable>(_ endpoint: String,
-                              method: HTTPMethod = .get,
+                              method: HTTPMethod = .post,
                               parameters: Parameters? = nil,
                               encoding: ParameterEncoding = URLEncoding.default) async throws -> T {
         let url = baseURL + endpoint
@@ -58,6 +59,12 @@ class APIClient {
                       headers: headers)
             .validate()
             .responseDecodable(of: T.self) { response in
+                // Print response for debugging
+                print("Response status code: \(String(describing: response.response?.statusCode))")
+                if let data = response.data, let str = String(data: data, encoding: .utf8) {
+                    print("Response data: \(str)")
+                }
+                
                 switch response.result {
                 case .success(let value):
                     continuation.resume(returning: value)

@@ -21,6 +21,7 @@ struct AuthenticationView: View {
             Spacer()
             
             GoogleSignInButton(scheme: .dark, style: .wide, state: .normal) {
+                print("Sign in button tapped")
                 viewModel.signInWithGoogle()
             }
             .frame(height: 48)
@@ -40,6 +41,9 @@ struct AuthenticationView: View {
             }
         } message: {
             Text(viewModel.error ?? "An unknown error occurred")
+        }
+        .onChange(of: viewModel.isAuthenticated) { newValue in
+            print("AuthenticationView: isAuthenticated changed to \(newValue)")
         }
     }
 } 

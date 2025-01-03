@@ -1,4 +1,15 @@
 import Foundation
+import Alamofire
+
+// Search request models to match Pydantic structure
+struct SearchQuery: Encodable {
+    let query: String
+    let loc: String
+}
+
+struct SearchRequest: Encodable {
+    let query: SearchQuery
+}
 
 protocol EventServiceProtocol {
     func searchEvents(query: String) async throws -> [Event]
@@ -15,10 +26,12 @@ class EventService: EventServiceProtocol {
     }
     
     func searchEvents(query: String) async throws -> [Event] {
-        let parameters: [String: Any] = ["query": query]
+        let parameters = ["query": query]
+        // Directly decode the response as [Event]
         return try await apiClient.request("/events/search",
-                                         method: .get,
-                                         parameters: parameters)
+                                         method: .post,
+                                         parameters: parameters,
+                                         encoding: URLEncoding.queryString)
     }
     
     func fetchUserEvents() async throws -> [Event] {
@@ -27,12 +40,12 @@ class EventService: EventServiceProtocol {
     
     func registerForEvent(eventId: String) async throws {
         let _: EmptyResponse = try await apiClient.request("/events/\(eventId)/register",
-                                                         method: .post)
+                                                       method: .post)
     }
     
     func unregisterFromEvent(eventId: String) async throws {
         let _: EmptyResponse = try await apiClient.request("/events/\(eventId)/unregister",
-                                                         method: .delete)
+                                                       method: .delete)
     }
 }
 
