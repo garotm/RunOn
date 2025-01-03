@@ -1,0 +1,473 @@
+# Project Name: RunOn
+
+## Project Description
+
+A mobile application (iOS and Android) that helps users discover and participate in local running events. It leverages Google Cloud Platform (GCP) services, including Google Search, OAuth, and Calendar APIs, to provide a seamless user experience.
+
+## Project Structure
+
+```bash
+/Users/garotconklin/garotm/fleXRPL/RunOn 
+├── .cursorrules
+├── .env
+├── .env.example
+├── .git
+│   ├── index
+│   ├── info
+│   │   └── exclude
+│   ├── logs
+│   │   ├── HEAD
+│   │   └── refs
+│   │       ├── heads
+│   │       ├── remotes
+│   │       └── stash
+│   ├── objects
+│   │   ├── info
+│   │   └── pack
+│   ├── packed-refs
+│   └── refs
+│       ├── heads
+│       ├── remotes
+│       │   └── origin
+│       ├── stash
+│       └── tags
+├── .github
+│   ├── dependabot.yml
+│   └── workflows
+│       ├── android.yml
+│       ├── build.yml
+│       └── ios.yml
+├── .gitignore
+├── LICENSE
+├── PRIVACY_POLICY.md
+├── PROJECT_GOAL.md
+├── README.md
+├── TERMS_OF_SERVICE.md
+├── android
+│   ├── .gradle
+│   ├── README.md
+│   ├── android
+│   │   └── app
+│   │       └── src
+│   ├── app
+│   │   ├── build
+│   │   │   ├── generated
+│   │   │   ├── intermediates
+│   │   │   ├── kotlin
+│   │   │   ├── kotlinToolingMetadata
+│   │   │   ├── outputs
+│   │   │   ├── reports
+│   │   │   ├── test-results
+│   │   │   └── tmp
+│   │   ├── build.gradle.kts
+│   │   ├── config
+│   │   │   └── detekt.yml
+│   │   └── src
+│   │       ├── main
+│   │       └── test
+│   ├── build
+│   │   └── reports
+│   │       └── problems
+│   ├── build.gradle.kts
+│   ├── docs
+│   │   └── DEVELOPMENT.md
+│   ├── gradle
+│   │   └── wrapper
+│   │       ├── gradle-wrapper.jar
+│   │       └── gradle-wrapper.properties
+│   ├── gradle.properties
+│   ├── gradlew
+│   ├── gradlew.bat
+│   ├── keystore
+│   │   ├── debug.keystore
+│   │   └── old.debug.keystore
+│   ├── local.properties
+│   ├── nohup.out
+│   ├── scripts
+│   │   ├── dev_setup.sh
+│   │   ├── fix_formatting.sh
+│   │   ├── format_and_lint.sh
+│   │   ├── run_local.sh
+│   │   └── setup.sh
+│   └── settings.gradle.kts
+├── backend
+│   ├── .coverage
+│   ├── .env -> /Users/garotconklin/garotm/fleXRPL/RunOn/.env
+│   ├── .env.export
+│   ├── .flake8
+│   ├── .pytest_cache
+│   │   ├── .gitignore
+│   │   ├── CACHEDIR.TAG
+│   │   ├── README.md
+│   │   └── v
+│   │       └── cache
+│   ├── README.md
+│   ├── __init__.py
+│   ├── cache
+│   ├── config
+│   │   ├── __init__.py
+│   │   └── environment.py
+│   ├── coverage.xml
+│   ├── coveragerc
+│   ├── db
+│   ├── docs
+│   │   ├── ANDROID_INTEGRATION.md
+│   │   ├── BACKEND_PROJECT_ALIGNMENT.md
+│   │   ├── LOCAL_ENV_TESTING.md
+│   │   └── __init__.py
+│   ├── functions
+│   │   ├── __init__.py
+│   │   ├── auth
+│   │   │   ├── __init__.py
+│   │   │   └── auth.py
+│   │   ├── calendar_sync
+│   │   │   ├── __init__.py
+│   │   │   └── calendar.py
+│   │   ├── event_discovery
+│   │   │   ├── __init__.py
+│   │   │   └── search.py
+│   │   └── user_management
+│   ├── infrastructure
+│   ├── main.py
+│   ├── models
+│   │   ├── __init__.py
+│   │   └── event.py
+│   ├── monitoring
+│   ├── pyproject.toml
+│   ├── pytest.ini
+│   ├── requirements-dev.txt
+│   ├── requirements.txt
+│   ├── scripts
+│   │   ├── cleanup_env.sh
+│   │   ├── format_and_lint.sh
+│   │   ├── run_local.sh
+│   │   └── setup.sh
+│   ├── security
+│   ├── setup.cfg
+│   └── tests
+│       ├── __init__.py
+│       ├── cache
+│       ├── calendar_sync
+│       │   ├── __init__.py
+│       │   └── test_calendar.py
+│       ├── config
+│       │   ├── __init__.py
+│       │   └── test_environment.py
+│       ├── conftest.py
+│       ├── db
+│       ├── event_discovery
+│       │   ├── __init__.py
+│       ├── functions
+│       │   ├── auth
+│       │   └── event_discovery
+│       ├── infrastructure
+│       ├── models
+│       │   ├── __init__.py
+│       │   └── test_event.py
+│       ├── monitoring
+│       ├── security
+│       ├── test_basic.py
+│       ├── test_conftest.py
+│       ├── test_main.py
+│       └── user_management9
+├── build.gradle.kts
+├── docs
+│   ├── detail
+│   │   ├── Andriod
+│   │   └── IOS
+│   │       ├── RunOn!-Competitive_Analysis.md
+│   │       ├── RunOn!-Project_Plan.md
+│   │       ├── RunOn!-Prospectus.md
+│   │       └── RunOn!-Technical_Project_Plan.md
+│   └── summary
+│       ├── Andriod
+│       │   ├── Project_Revision.md
+│       │   ├── RunOn!-Competitive_Analysis_Summary.md
+│       │   ├── RunOn!-Project_Plan_Summary.md
+│       │   ├── RunOn!-Prospectus_Summary.md
+│       │   └── RunOn!-Technical_Project_Plan_Summary.md
+│       └── IOS
+├── ios
+│   ├── RunOn
+│   │   ├── Config.xcconfig.example
+│   │   ├── DerivedData
+│   │   │   ├── Build
+│   │   │   ├── Index.noindex
+│   │   │   ├── Logs
+│   │   │   ├── ModuleCache.noindex
+│   │   │   ├── SDKStatCaches.noindex
+│   │   │   ├── SourcePackages
+│   │   │   └── info.plist
+│   │   ├── RunOn
+│   │   │   ├── App
+│   │   │   ├── Assets.xcassets
+│   │   │   ├── Core
+│   │   │   ├── Features
+│   │   │   ├── GoogleService-Info.plist
+│   │   │   ├── Info.plist
+│   │   │   ├── Preview Content
+│   │   │   └── RunOn.entitlements
+│   │   ├── RunOn.xcodeproj
+│   │   │   ├── project.pbxproj
+│   │   │   ├── project.pbxproj.bak
+│   │   │   ├── project.xcworkspace
+│   │   │   ├── xcshareddata
+│   │   │   └── xcuserdata
+│   │   ├── RunOnTests
+│   │   │   ├── EventServiceTests.swift
+│   │   │   ├── EventsViewModelTests.swift
+│   │   │   ├── Helpers
+│   │   │   ├── Mocks
+│   │   │   ├── RunOnTests.swift
+│   │   │   └── SearchViewModelTests.swift
+│   │   ├── RunOnUITests
+│   │   │   ├── RunOnUITests.swift
+│   │   │   └── RunOnUITestsLaunchTests.swift
+│   │   ├── build.log
+│   │   ├── project.yml
+│   │   └── scripts
+│   │       └── generate_config.sh
+│   ├── scripts
+│   │   ├── format.sh
+│   │   ├── regenerate_project.sh
+│   │   ├── run.sh
+│   │   ├── setup.sh
+│   │   └── test.sh
+│   └── tmp.xcconfig
+└── sonar-project.properties
+
+408 directories, 2166 files
+```
+
+## Code Style Guide
+
+### Python (Backend)
+
+* **PEP 8 Compliance:**  Strict adherence to PEP 8 style guidelines.
+* **Type Hints:**  Comprehensive use of type hints.
+* **Docstrings:**  Detailed docstrings following the Google style guide.
+* **Google Python Style Guide:**  Adhere to Google's Python style guide for consistency with GCP services.
+
+### Swift (iOS)
+
+* **SwiftLint:**  Utilize SwiftLint with a strict configuration to enforce code style and best practices.
+* **Documentation:**  Clear and concise documentation using Xcode's built-in documentation features.
+* **Xcode:**  Use Xcode to develop and deploy the iOS application to the App Store.
+
+### Kotlin (Android) - Future Consideration
+
+* **ktlint:**  Use ktlint for code style enforcement.
+* **Documentation:**  Comprehensive documentation using Kotlin documentation conventions.
+
+## Technology Stack
+
+* **Programming Languages:**
+    * Python 3.11+ (backend)
+    * Swift 5.9+ (iOS)
+    * Kotlin 1.9+ (Android - future)
+* **Frameworks/Libraries:**
+    * **Backend:** 
+        * FastAPI 0.104+ (Python)
+        * Google Cloud client libraries (latest stable)
+        * pytest 7.4+
+    * **iOS:** 
+        * SwiftUI (iOS 17+)
+        * Google Sign-In SDK 7.0+
+        * Alamofire 5.8+
+    * **Android:** (Future) 
+        * Jetpack Compose
+        * Google APIs Client Library for Java
+* **Databases:** Google Cloud Datastore (NoSQL)
+* **Cloud Platform:** Google Cloud Platform (GCP)
+* **APIs:** 
+    * Google Custom Search API v1
+    * Google OAuth 2.0 API
+    * Google Calendar API v3
+* **Other Tools:**
+    * Docker 24+
+    * GitHub Actions (CI/CD)
+    * SonarQube Cloud
+    * Dependabot
+    * SwiftLint 0.54+
+    * XcodeGen 2.38+
+
+## Environment Setup
+
+### Local Development Environment
+* **Backend:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    pip install -r requirements-dev.txt
+    ```
+* **iOS:**
+    ```bash
+    cd ios/scripts
+    ./setup.sh
+    ./regenerate_project.sh
+    ```
+* **Required Environment Variables:**
+    ```
+    RUNON_CLIENT_ID=<google-oauth-client-id>
+    RUNON_API_KEY=<google-api-key>
+    RUNON_SEARCH_ENGINE_ID=<google-custom-search-engine-id>
+    ```
+
+## CI/CD Workflow
+
+### GitHub Actions
+* **iOS Pipeline:**
+    * Trigger: Push to main/iOS-frontend or PR
+    * Steps:
+        1. Setup Xcode environment
+        2. Install dependencies
+        3. Run tests
+        4. Build app
+        5. Run SonarQube analysis
+
+* **Backend Pipeline:**
+    * Trigger: Push to main or PR
+    * Steps:
+        1. Setup Python environment
+        2. Install dependencies
+        3. Run tests with pytest
+        4. Run linting (flake8)
+        5. Run SonarQube analysis
+
+### Quality Gates
+* Minimum test coverage: 80%
+* No critical or blocker issues in SonarQube
+* All tests must pass
+* No security vulnerabilities
+
+## Error Handling Standards
+
+### Backend
+* Use custom exception classes
+* Implement proper HTTP status codes
+* Log errors with appropriate severity levels
+* Return structured error responses:
+    ```json
+    {
+        "error": {
+            "code": "ERROR_CODE",
+            "message": "User-friendly message",
+            "details": "Technical details (dev only)"
+        }
+    }
+    ```
+
+### iOS
+* Implement proper error handling for network requests
+* Use custom Error types
+* Present user-friendly error messages
+* Log errors for debugging:
+    ```swift
+    print("Error: \(error.localizedDescription)")
+    ```
+
+## Version Control Guidelines
+
+### Branch Naming
+* Feature branches: `feature/description`
+* Bug fixes: `fix/description`
+* Releases: `release/x.y.z`
+
+### Commit Messages
+* Format: `type(scope): description`
+* Types: feat, fix, docs, style, refactor, test, chore
+* Example: `feat(auth): implement Google Sign-In`
+
+### Pull Requests
+* Required reviewers: 1
+* Must pass CI checks
+* Must have updated tests
+* Must update documentation
+
+## Common Tasks
+
+### Backend (Python)
+
+* **Create a new API endpoint:**
+    * Implement a Flask endpoint at `/api/[endpointName]` to [describe functionality, e.g., handle user authentication, search for running events, register for an event].
+    * Include input validation, error handling, and authentication using Google OAuth 2.0.
+    * Write unit tests using `pytest` with high test coverage.
+* **Interact with Google Cloud APIs:**
+    * Use Google Cloud client libraries to interact with Google Search, OAuth, and Calendar APIs.
+    * Implement efficient API request handling and data parsing.
+* **Implement data storage:**
+    * Utilize Google Cloud Datastore to store and retrieve user data, event information, and other application data.
+    * Design efficient data models and queries.
+
+## Frontend (iOS - Swift)
+
+* **Develop a new SwiftUI view:**
+    * Create a new SwiftUI view named `[ViewName]` to [describe functionality, e.g., display a list of events, show event details, allow users to register for an event].
+    * Follow SwiftUI best practices for state management, navigation, and UI design.
+    * Write unit tests using XCTest to ensure view functionality and UI rendering.
+* **Integrate with Google APIs:**
+    * Use the Google APIs Client Library for Objective-C to authenticate users with Google OAuth 2.0 and interact with Google services.
+* **Fetch data from the backend API:**
+    * Implement API calls to the backend endpoints using appropriate networking libraries.
+    * Handle API responses, including error handling and data processing.
+
+## General
+
+* **Write unit tests:**
+    * Write comprehensive unit tests for all new code, including edge cases and error handling.
+    * Aim for high test coverage to ensure code quality and prevent regressions.
+* **Generate documentation:**
+    * Generate clear and concise documentation for all new code, including API endpoints, functions, classes, and UI components.
+
+## Advanced Usage
+
+### Security
+
+* **Implement secure authentication and authorization:**
+    * Use Google OAuth 2.0 for secure user authentication and authorization.
+    * Protect user data and API keys following security best practices.
+* **Sanitize user inputs:**
+    * Sanitize all user inputs to prevent vulnerabilities like cross-site scripting (XSS).
+
+### Performance
+
+* **Optimize API requests:**
+    * Minimize the number and size of API requests to Google services and the backend.
+    * Implement caching mechanisms to reduce API calls.
+* **Optimize data storage:**
+    * Design efficient data models and queries for Google Cloud Datastore to minimize latency.
+
+### Error Handling and Logging
+
+* **Implement robust error handling:**
+    * Handle API errors, network errors, and other potential errors gracefully.
+    * Provide informative error messages to users.
+* **Implement logging:**
+    * Log important events and errors for debugging and monitoring.
+
+### Minimum Viable Product (MVP)
+
+* **Focus on core features:**
+    * Prioritize core features like user authentication, event search, and event registration for the MVP.
+    * Defer non-essential features to later iterations.
+
+### SonarQube Integration
+
+* **Maintain code quality:**
+    * Regularly analyze code with SonarQube to identify and address code smells, bugs, and vulnerabilities.
+    * Aim for a high SonarQube quality rating.
+
+### Scalability and Maintainability
+
+* **Design for scalability:**
+    * Use GCP services and architecture patterns that can scale to accommodate a growing user base.
+* **Write clean and maintainable code:**
+    * Follow coding conventions, write modular code, and use clear naming conventions to ensure maintainability.
+
+**Key Considerations for RunOn:**
+
+* **Google Cloud Platform Expertise:**  Cursor needs to be proficient in using GCP services, including Datastore, Search API, OAuth 2.0, and Calendar API.
+* **SwiftUI and (Future) Jetpack Compose:**  Cursor should be able to generate efficient and idiomatic code for SwiftUI (iOS) and, in the future, Jetpack Compose (Android).
+* **API Integration:**  Clearly define how Cursor should interact with the backend API and Google APIs, including request/response formats and error handling.
+* **Location-based Search:**  The app relies heavily on location-based search for running events. Guide Cursor on how to handle location data and integrate with the Google Search API for relevant results.
