@@ -21,22 +21,14 @@ def mock_environment():
 
 
 @pytest.fixture
-def mock_requests():
-    """Mock requests library."""
-    with patch("functions.event_discovery.search.requests") as mock_req:
+def mock_requests(mock_search_response):
+    """Mock requests.get for Google Custom Search API."""
+    with patch("requests.get") as mock_get:
         mock_response = MagicMock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {
-            "items": [
-                {
-                    "title": "5K Run on March 15, 2024",
-                    "snippet": "Join us for our annual 5K run",
-                    "link": "https://example.com/event1",
-                }
-            ]
-        }
-        mock_req.get.return_value = mock_response
-        yield mock_req.get
+        mock_response.json.return_value = mock_search_response
+        mock_get.return_value = mock_response
+        yield mock_get
 
 
 def test_search_running_events_success(mock_environment, mock_requests):
@@ -80,7 +72,7 @@ def test_search_running_events_with_location(mock_environment, mock_requests):
 
 def test_search_running_events_request_exception(mock_environment):
     """Test handling of request exceptions."""
-    with patch("functions.event_discovery.search.requests.get") as mock_get:
+    with patch("requests.get") as mock_get:
         mock_get.side_effect = requests.exceptions.RequestException("Connection error")
         events = search_running_events("marathon")
         assert len(events) == 0
