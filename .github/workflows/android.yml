@@ -4,10 +4,12 @@ on:
     branches: [ main, mvp-android ]
     paths:
       - 'android/**'
+      - '.github/workflows/android.yml'
   pull_request:
     branches: [ main ]
     paths:
       - 'android/**'
+      - '.github/workflows/android.yml'
 
 jobs:
   android-build:

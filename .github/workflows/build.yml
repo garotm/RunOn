@@ -3,8 +3,16 @@ name: Build and Test
 on:
   push:
     branches: [ main, mvp ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/build.yml'
+      - 'requirements*.txt'
   pull_request:
     branches: [ main, mvp ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/build.yml'
+      - 'requirements*.txt'
 
 jobs:
   test:
