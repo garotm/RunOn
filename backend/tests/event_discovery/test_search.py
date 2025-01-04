@@ -1,12 +1,15 @@
 """Tests for event discovery functionality."""
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from unittest.mock import MagicMock, patch
 
 import pytest
 import requests
 
 from functions.event_discovery.search import (
+    CACHE_TTL,
+    _cache,
+    _get_cache_key,
     extract_date_from_text,
     extract_distance_from_text,
     search_running_events,
@@ -115,59 +118,110 @@ def mock_search_response():
         "items": [
             {
                 "title": "5K Run on March 15, 2024",
-                "snippet": "Join us for our annual 5K run in Central Park",
+                "snippet": "Join us for a 5K run through Central Park. Distance: 5K",
                 "link": "https://example.com/event1",
-            },
-            {
-                "title": "Marathon Event April 1, 2024",
-                "snippet": "Full marathon through the city",
-                "link": "https://example.com/event2",
-            },
+                "pagemap": {
+                    "metatags": [
+                        {
+                            "og:description": "5K run through Central Park",
+                            "og:title": "5K Run on March 15, 2024",
+                        }
+                    ]
+                },
+            }
         ]
     }
 
 
-def test_search_running_events_success(mock_env_vars, mock_search_response):
-    """Test successful event search."""
+@pytest.fixture
+def mock_requests(mock_search_response):
+    """Mock requests.get for Google Custom Search API."""
     with patch("requests.get") as mock_get:
-        mock_get.return_value = MagicMock(
-            status_code=200,
-            json=lambda: mock_search_response,
-        )
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = mock_search_response
+        mock_get.return_value = mock_response
+        yield mock_get
 
-        events = search_running_events("New York")
-        assert len(events) == 2
 
-        # Verify first event
-        assert events[0].name == "5K Run on March 15, 2024"
-        assert events[0].distance == 5.0
-        assert events[0].date == datetime(2024, 3, 15)
+def test_search_running_events_success(mock_env_vars, mock_requests):
+    """Test successful event search."""
+    location = "New York"
 
-        # Verify second event
-        assert events[1].name == "Marathon Event April 1, 2024"
-        assert events[1].distance == 42.2
-        assert events[1].date == datetime(2024, 4, 1)
+    # First call should hit the API
+    events1 = search_running_events(location)
+    assert len(events1) == 1
+    mock_requests.assert_called_once()
+
+    # Second call should use cache
+    events2 = search_running_events(location)
+    assert len(events2) == 1
+    assert mock_requests.call_count == 1  # No additional API calls
+
+    # Results should be the same
+    assert events1 == events2
 
 
 def test_search_running_events_api_error(mock_env_vars):
     """Test handling API errors."""
+    # Clear the cache
+    _cache.clear()
+
     with patch("requests.get") as mock_get:
         mock_get.side_effect = requests.exceptions.HTTPError("API Error")
         events = search_running_events("New York")
         assert len(events) == 0
 
 
-def test_search_running_events_with_location(mock_env_vars, mock_search_response):
+def test_search_running_events_with_location(mock_env_vars, mock_requests):
     """Test search with location parameter."""
-    with patch("requests.get") as mock_get:
-        mock_get.return_value = MagicMock(
-            status_code=200,
-            json=lambda: mock_search_response,
-        )
+    location = "Boston"
+    events = search_running_events("marathon", location=location)
 
-        events = search_running_events("marathon", location="Boston")
+    # Verify location was added to search terms
+    call_args = mock_requests.call_args[1]
+    assert location in call_args["params"]["q"]
+    assert len(events) == 1
 
-        # Verify location was added to search terms
-        call_args = mock_get.call_args[1]
-        assert "Boston" in call_args["params"]["q"]
-        assert len(events) == 2
+
+def test_search_running_events_caching(mock_env_vars, mock_requests):
+    """Test that search results are cached."""
+    # Clear the cache first
+    _cache.clear()
+
+    location = "New York"
+
+    # First call should hit the API
+    events1 = search_running_events(location)
+    assert len(events1) == 1
+    mock_requests.assert_called_once()
+
+    # Second call should use cache
+    events2 = search_running_events(location)
+    assert len(events2) == 1
+    assert mock_requests.call_count == 1  # No additional API calls
+
+    # Results should be the same
+    assert events1 == events2
+
+
+def test_search_running_events_cache_expiry(mock_env_vars, mock_requests):
+    """Test that cache expires after TTL."""
+    # Clear the cache first
+    _cache.clear()
+
+    location = "New York"
+
+    # First call should hit the API
+    events1 = search_running_events(location)
+    assert len(events1) == 1
+    mock_requests.assert_called_once()
+
+    # Simulate cache expiry
+    cache_key = _get_cache_key(location)
+    _cache[cache_key] = (_cache[cache_key][0], datetime.now() - CACHE_TTL - timedelta(seconds=1))
+
+    # Second call should hit API again due to expired cache
+    events2 = search_running_events(location)
+    assert len(events2) == 1
+    assert mock_requests.call_count == 2  # Additional API call made

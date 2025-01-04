@@ -1,14 +1,44 @@
 """Event discovery using Google Search."""
 
+import hashlib
 import re
-from datetime import datetime
-from typing import List, Optional
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional
 
 import requests
 from dateutil import parser as date_parser
 
 from config.environment import Environment
 from models.event import Event
+
+# Simple in-memory cache
+_cache: Dict[str, tuple[List[Event], datetime]] = {}
+CACHE_TTL = timedelta(hours=24)  # Cache results for 24 hours
+
+
+def _get_cache_key(query: str, location: Optional[str] = None) -> str:
+    """Generate cache key from search parameters."""
+    key = f"{query}:{location if location else ''}"
+    return hashlib.md5(key.encode()).hexdigest()
+
+
+def _get_from_cache(cache_key: str) -> Optional[List[Event]]:
+    """Get results from cache if available and not expired."""
+    if cache_key in _cache:
+        results, timestamp = _cache[cache_key]
+        if datetime.now() - timestamp < CACHE_TTL:
+            print(f"Cache hit for key: {cache_key}")
+            return results
+        else:
+            print(f"Cache expired for key: {cache_key}")
+            del _cache[cache_key]
+    return None
+
+
+def _save_to_cache(cache_key: str, results: List[Event]):
+    """Save results to cache."""
+    _cache[cache_key] = (results, datetime.now())
+    print(f"Saved to cache: {cache_key}")
 
 
 def extract_date_from_text(text: str) -> Optional[datetime]:
@@ -78,6 +108,12 @@ def search_running_events(query: str, location: Optional[str] = None) -> List[Ev
     Returns:
         List[Event]: List of running events found
     """
+    # Check cache first
+    cache_key = _get_cache_key(query, location)
+    cached_results = _get_from_cache(cache_key)
+    if cached_results is not None:
+        return cached_results
+
     api_key = Environment.get_required("RUNON_API_KEY")
     search_engine_id = Environment.get_required("RUNON_SEARCH_ENGINE_ID")
 
@@ -129,7 +165,10 @@ def search_running_events(query: str, location: Optional[str] = None) -> List[Ev
             )
             events.append(event)
 
+        # Cache successful results
+        _save_to_cache(cache_key, events)
         return events
+
     except requests.exceptions.RequestException as e:
         print(f"Search error: {str(e)}")
         return []
