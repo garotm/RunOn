@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set Java version for the session
-export JAVA_HOME=$(/Users/garotconklin/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home)
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 export PATH="$JAVA_HOME/bin:$PATH"
 
 # Exit on any error
@@ -9,6 +9,41 @@ set -e
 
 # Change to the backend directory
 cd "$(dirname "$0")/.."
+
+# Function to check Python version
+check_python_version() {
+    local required_version="3.9"
+    local python_cmd=$1
+    local version=$($python_cmd -c "import sys; print('.'.join(map(str, sys.version_info[:2])))")
+    
+    if [[ $version == $required_version* ]]; then
+        echo "✅ Found compatible Python version: $version"
+        return 0
+    else
+        echo "❌ Python version $version found, but version $required_version.x is required"
+        return 1
+    fi
+}
+
+# Find compatible Python version
+echo "🔍 Looking for compatible Python version..."
+PYTHON_CMD=""
+for cmd in "python3.9" "python3" "python"; do
+    if command -v $cmd >/dev/null 2>&1; then
+        if check_python_version $cmd; then
+            PYTHON_CMD=$cmd
+            break
+        fi
+    fi
+done
+
+if [ -z "$PYTHON_CMD" ]; then
+    echo "❌ Error: Python 3.9.x is required but not found"
+    echo "Please install Python 3.9 using one of these methods:"
+    echo "  - brew install python@3.9"
+    echo "  - arch -arm64 /opt/homebrew/bin/brew install python@3.9"
+    exit 1
+fi
 
 # Get the project root directory (one level up from backend)
 PROJECT_ROOT="$(dirname "$(pwd)")"
@@ -52,13 +87,19 @@ fi
 
 # Create new virtual environment
 echo "🔨 Creating new virtual environment..."
-python3.9 -m venv venv
+$PYTHON_CMD -m venv venv
 echo "✅ Virtual environment created"
 
 # Activate virtual environment
 echo "🔌 Activating virtual environment..."
 source venv/bin/activate
 echo "✅ Virtual environment activated"
+
+# Verify virtual environment Python version
+if ! check_python_version "python"; then
+    echo "❌ Virtual environment Python version mismatch"
+    exit 1
+fi
 
 # Install dependencies
 echo "📦 Installing dependencies..."
@@ -85,4 +126,7 @@ sleep 2
 
 # Run the server with environment variables
 echo "🚀 Starting local server..."
-PYTHONPATH=$PYTHONPATH:$(pwd) uvicorn main:app --reload --host 0.0.0.0 --port 8000 
+# Ensure we're using the virtual environment's Python
+VENV_PYTHON="$(pwd)/venv/bin/python"
+VENV_UVICORN="$(pwd)/venv/bin/uvicorn"
+PYTHONPATH=$PYTHONPATH:$(pwd) $VENV_UVICORN main:app --reload --host 0.0.0.0 --port 8000 
