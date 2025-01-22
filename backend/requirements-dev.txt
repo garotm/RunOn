@@ -2,7 +2,7 @@
 pytest==7.4.3
 pytest-cov==4.1.0
 pytest-asyncio==0.25.2
-httpx==0.24.1
+httpx==0.28.1
 
 # Formatting
 black>=22.0.0
