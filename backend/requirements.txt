@@ -9,7 +9,7 @@ google-api-python-client>=2.0.0
 pyjwt==2.10.*
 requests==2.32.*
 python-dateutil==2.9.*
-fastapi==0.115.6
+fastapi==0.115.7
 starlette==0.40.0
 pydantic==2.4.2
 python-multipart==0.0.20
