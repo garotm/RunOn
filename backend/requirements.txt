@@ -23,4 +23,4 @@ opencensus-ext-stackdriver==0.8.0
 opencensus==0.11.4
 
 # Server
-uvicorn==0.27.*
+uvicorn==0.34.*
