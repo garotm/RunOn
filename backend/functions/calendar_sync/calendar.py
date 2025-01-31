@@ -22,6 +22,17 @@ def get_calendar_service(credentials: Credentials):
     return build("calendar", "v3", credentials=credentials)
 
 
+def create_calendar_event(event: Event) -> Dict:
+    """Create a Google Calendar event from a RunOn event."""
+    return {
+        "summary": f"🏃 {event.name}",
+        "location": event.location,
+        "description": f"{event.description}\n\nDistance: {event.distance}km\n\nMore info: {event.url}",
+        "start": {"dateTime": event.date.isoformat(), "timeZone": "UTC"},
+        "end": {"dateTime": event.date.isoformat(), "timeZone": "UTC"},
+    }
+
+
 def add_event_to_calendar(
     event: Event,
     credentials: Credentials,
@@ -37,7 +48,7 @@ def add_event_to_calendar(
     """
     try:
         service = get_calendar_service(credentials)
-        calendar_event = event.to_calendar_event()
+        calendar_event = create_calendar_event(event)
 
         # Check if event already exists
         if event.calendar_event_id:
@@ -51,7 +62,8 @@ def add_event_to_calendar(
                 return existing_event["id"]
             except HttpError as e:
                 if e.resp.status != 404:  # If error is not "Not Found"
-                    raise
+                    print(f"Error checking existing event: {str(e)}")
+                    return None
 
         # Create new event
         result = (
@@ -64,6 +76,10 @@ def add_event_to_calendar(
         )
 
         event_id = result.get("id")
+        if not event_id:
+            print("No event ID returned from calendar API")
+            return None
+
         print(f"Created calendar event: {event_id}")
         return event_id
 

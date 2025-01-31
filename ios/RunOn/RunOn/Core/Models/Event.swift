@@ -7,10 +7,13 @@ struct Event: Identifiable, Codable {
     let location: String
     let description: String
     let url: String
+    let distance: Double
+    let coordinates: Coordinates?
     
-    // Optional fields with default values
-    let distance: Double = 0.0 // Will be populated later
-    let registrationDeadline: Date // Default to a month from the event date
+    struct Coordinates: Codable {
+        let latitude: Double
+        let longitude: Double
+    }
     
     var formattedDate: String {
         let formatter = DateFormatter()
@@ -23,13 +26,21 @@ struct Event: Identifiable, Codable {
         return String(format: "%.1f km", distance)
     }
     
+    var time: String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+    
     enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case name = "name"
-        case date = "date"
-        case location = "location"
-        case description = "description"
-        case url = "url"
+        case id
+        case name
+        case date
+        case location
+        case description
+        case url
+        case distance
+        case coordinates
     }
     
     init(from decoder: Decoder) throws {
@@ -41,6 +52,7 @@ struct Event: Identifiable, Codable {
         location = try container.decode(String.self, forKey: .location)
         description = try container.decode(String.self, forKey: .description)
         url = try container.decode(String.self, forKey: .url)
+        distance = try container.decodeIfPresent(Double.self, forKey: .distance) ?? 0.0
         
         // Handle date decoding with ISO8601 format
         let dateString = try container.decode(String.self, forKey: .date)
@@ -50,22 +62,35 @@ struct Event: Identifiable, Codable {
         if let parsedDate = formatter.date(from: dateString) {
             date = parsedDate
         } else {
-            // Fallback to current date if parsing fails
             print("Warning: Failed to parse date string: \(dateString)")
             date = Date()
         }
         
-        // Set registrationDeadline to a month before the event date
-        registrationDeadline = date.addingTimeInterval(-30 * 24 * 60 * 60)
+        // Decode coordinates if present
+        if let coords = try container.decodeIfPresent([String: Double].self, forKey: .coordinates),
+           let lat = coords["latitude"],
+           let lon = coords["longitude"] {
+            coordinates = Coordinates(latitude: lat, longitude: lon)
+        } else {
+            coordinates = nil
+        }
     }
     
-    init(id: String, name: String, date: Date, location: String, description: String, distance: Double, registrationDeadline: Date) {
+    init(id: String = UUID().uuidString,
+         name: String,
+         date: Date,
+         location: String,
+         description: String,
+         url: String = "",
+         distance: Double = 0.0,
+         coordinates: Coordinates? = nil) {
         self.id = id
         self.name = name
         self.date = date
         self.location = location
         self.description = description
-        self.url = "" // Default empty URL for manually created events
-        self.registrationDeadline = registrationDeadline
+        self.url = url
+        self.distance = distance
+        self.coordinates = coordinates
     }
 } 
