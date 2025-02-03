@@ -16,7 +16,7 @@ python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 [tool.poetry.dev-dependencies]
 pytest = "^8.3.4"
 pytest-cov = "^6.0.0"
-black = "^24.3"
+black = "^25.1"
 isort = "^5.9.3"
 flake8 = "^7.1.1"
 
